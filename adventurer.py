@@ -1,30 +1,30 @@
 from __init__ import CURSOR, CONN
 from group import Group
 
+JOB = [
+    "Brawler",
+    "Director",
+    "Feral",
+    "Hopeless",
+    "Lookout",
+    "Preacher",
+    "Shade",
+    "Zealot"
+]
+
+ALIGNMENT = [
+    "Apathetic",
+    "Anarchic",
+    "Commercial",
+    "Philanthropical",
+    "Political",
+    "Religious",
+    "Social"
+]
+
 class Adventurer:
 
     all = {}
-
-    JOB = [
-        "Brawler",
-        "Director",
-        "Feral",
-        "Hopeless",
-        "Lookout",
-        "Preacher",
-        "Shade",
-        "Zealot"
-    ]
-
-    ALIGNMENT = [
-        "Apathetic",
-        "Anarchic",
-        "Commercial",
-        "Philanthropical",
-        "Political",
-        "Religious",
-        "Social"
-    ]
 
     def __init__(self, name, alignment, job, level, group_id, id=None):
         self.id = id
@@ -39,16 +39,63 @@ class Adventurer:
         job_ = f"Job: {self.job} |{self.level}|"   
         alignment_ = f"Alignment: {self.alignment}"
         def pick_length():
-            if len(name_) > len(job_) and len(name_) > len(alignment_):
+            if len(name_) >= len(job_) and len(name_) >= len(alignment_):
                 return "_" * len(name_)
-            if len(job_) > len(alignment_):
+            if len(job_) >= len(alignment_):
                 return "_" * len(job_)
             return "_" * len(alignment_)
         return f"{name_}\n{job_}\n{alignment_}\nGroup ID: {self.group_id}\n{pick_length()}"
     
-ted = Adventurer("Ted", "Social", "Preacher", 11, 2, 1)
-marta = Adventurer("Marta", "Philanthropical", "Feral", 11, 3, 2)
-allendiuminiolle = Adventurer("Allen Diumini Olle", "Commercial", "Director", 17, 2, 3)
-print(ted)
-print(marta)
-print(allendiuminiolle)
+    @property
+    def name(self):
+        return self._name
+    
+    @name.setter
+    def name(self, name):
+        if isinstance(name, str) and len(name):
+            self._name = name.capitalize()
+        else:
+            raise ValueError("Name must be a non-empty string.")
+        
+    @property
+    def alignment(self):
+        return self._alignment
+    
+    @alignment.setter
+    def alignment(self, alignment):
+        if alignment.capitalize() in ALIGNMENT:
+            self._alignment = alignment.capitalize()
+        else:
+            raise ValueError(f"{alignment.capitalize()} is not a valid alignment.")
+    
+    @property
+    def job(self):
+        return self._job
+    
+    @job.setter
+    def job(self, job):
+        if job.capitalize() in JOB:
+            self._job = job.capitalize()
+        else:
+            raise ValueError(f"{job.capitalize()} is not a valid job.")
+        
+    @property
+    def level(self):
+        return self._level
+    
+    @level.setter
+    def level(self, level):
+        if isinstance(level, int) and (0 < level <= 20):
+            self._level = level
+        else:
+            raise ValueError(f"Level must be a number between 1 and 20. (provided {level})")
+
+        
+# adam = Adventurer("adam", "social", "preacher", 12, 1, 1)
+# print(adam)
+# banderax = Adventurer("Banderax", "PHILANTHROPICAL", "FeRaL", 20, 1, 2)
+# print(banderax)
+# collest = Adventurer("Collest", "Religious", "Hopeless", 18, 1, 3)
+# print(collest)
+# duotim = Adventurer("Duotim", "Political", "director", 10, 1, 4)
+# print(duotim)
