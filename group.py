@@ -16,3 +16,6 @@ class Group:
         self.name = name
         self.continent = continent
         self.city = city
+    
+    def __repr__(self):
+        return f"Group {self.id}: {self.name} of {self.city}, {self.continent}"
