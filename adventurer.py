@@ -3,6 +3,29 @@ from group import Group
 
 class Adventurer:
 
+    all = {}
+
+    JOB = [
+        "Brawler",
+        "Director",
+        "Feral",
+        "Hopeless",
+        "Lookout",
+        "Preacher",
+        "Shade",
+        "Zealot"
+    ]
+
+    ALIGNMENT = [
+        "Apathetic",
+        "Anarchic",
+        "Commercial",
+        "Philanthropical",
+        "Political",
+        "Religious",
+        "Social"
+    ]
+
     def __init__(self, name, job, alignment, level, group_id, id=None):
         self.id = id
         self.name = name
