@@ -120,7 +120,7 @@ class Group:
         del type(self).all[self.id] #(removes from 'all' dictionary)
         self.id = None #(key no longer associated with that id)
     #==================================
-    # Class Methods to view Group Information
+    # Class Methods to Search Group Information
 
     @classmethod
     def instance_from_database(cls, row):

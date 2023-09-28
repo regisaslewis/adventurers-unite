@@ -89,6 +89,42 @@ class Adventurer:
             self._level = level
         else:
             raise ValueError(f"Level must be a number between 1 and 20. (provided {level})")
+    
+    # Creating, Deleting, and Saving the Table
+    @classmethod
+    def make_table(cls):
+        sql = """
+        CREATE TABLE IF NOT EXISTS adventurers (
+        id INTEGER PRIMARY KEY,
+        name TEXT,
+        alignment TEXT,
+        job TEXT,
+        level INTEGER,
+        group_id INTEGER,
+        FOREIGN KEY (group_id) REFERENCES groups(id))
+        """
+        CURSOR.execute(sql)
+        CONN.commit()
+
+    @classmethod
+    def remove_table(cls):
+        sql = """
+        DROP TABLE IF EXISTS adventurers;
+        """
+        CURSOR.execute(sql)
+        CONN.commit()
+
+    def save(self):
+        sql = """
+        INSERT INTO adventurers (name, alignment, job, level, group_id)
+        VALUES(?, ?, ?, ?, ?)
+        """
+        CURSOR.execute(sql, (self.name, self.alignment, self.job, self.level, self.group_id))
+        CONN.commit()
+        self.id = CURSOR.lastrowid
+        type(self).all[self.id] = self
+    #==================================
+    # CRUD for the SQL Database
 
         
 # adam = Adventurer("adam", "social", "preacher", 12, 1, 1)
