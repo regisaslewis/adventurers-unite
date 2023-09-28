@@ -75,6 +75,22 @@ class Group:
         CURSOR.execute(sql)
         CONN.commit()
 
+    @classmethod
+    def remove_table(self):
+        sql = """
+            DROP TABLE IF EXISTS groups;
+        """
+        CURSOR.execute(sql)
+        CONN.commit()
+
+    def new_row(self):
+        sql = """
+            INSERT INTO groups (name, continent, city)
+            VALUES (?, ?, ?)
+        """
+        CURSOR.execute(sql,(self.name, self.continent, self.city))
+        CONN.commit()
+
 # ala = Group("Ala's Defilers", "jidoth", "Lord's Port", 1)
 # print(ala)
 # becco = Group("Becco", "Mollen", "len city", 2)
