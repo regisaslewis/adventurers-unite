@@ -1,5 +1,5 @@
 from __init__ import CURSOR, CONN
-from classes.group import Group
+from group import Group
 
 JOB = [
     "Brawler",
@@ -239,6 +239,16 @@ class Adventurer:
         """
         n = CURSOR.execute(sql, (name,)).fetchone()
         return cls.instance_from_database(n) if n else None
+    
+    def group(self):
+        sql = """
+            SELECT *
+            FROM groups
+            WHERE id = ?
+        """
+        CURSOR.execute(sql, (self.group_id,),)
+        group = CURSOR.fetchone()
+        return Group.instance_from_database(group)
 
 
 
@@ -252,3 +262,4 @@ class Adventurer:
 # #     print(n)
 # for n in Adventurer.get_alignment("Social"):
 #      print(n)
+print(f"{Adventurer.get_by_id(3).name}'s Group:\n", Adventurer.group(Adventurer.get_by_id(3)))
