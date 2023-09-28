@@ -101,6 +101,7 @@ class Adventurer:
     def group_id(self, group_id):
         if Group.get_by_id(group_id) and (Group.get_by_id(group_id).members < 4):
             Group.get_by_id(group_id).members += 1
+            # Check to make sure the group isn't full (4/4), add one member to group if it is not.
             self._group_id = group_id
         else:
             raise ValueError("Full Group or Invalid Group ID#")
@@ -189,5 +190,56 @@ class Adventurer:
         database = CURSOR.execute(sql).fetchall()
         return [cls.instance_from_database(n) for n in database]
     
+    @classmethod
+    def get_alignment(cls, alignment):
+        sql = """
+        SELECT *
+        FROM adventurers
+        WHERE alignment = ?
+        """
+        advs = CURSOR.execute(sql, (alignment,)).fetchall()
+        return [cls.instance_from_database(n) for n in advs]
+    
+    @classmethod
+    def get_job(cls, job):
+        sql = """
+        SELECT *
+        FROM adventurers
+        WHERE job = ?
+        """
+        advs = CURSOR.execute(sql, (job,)).fetchall()
+        return [cls.instance_from_database(n) for n in advs]
+        
+    
+    @classmethod
+    def get_by_id(cls, id):
+        sql = """
+        SELECT *
+        FROM adventurers
+        WHERE id = ?
+        """
+        n = CURSOR.execute(sql, (id,)).fetchone()
+        return cls.instance_from_database(n) if n else None
+    
+    @classmethod
+    def get_by_name(cls, name):
+        sql = """
+        SELECT *
+        FROM adventurers
+        WHERE name = ?
+        """
+        n = CURSOR.execute(sql, (name,)).fetchone()
+        return cls.instance_from_database(n) if n else None
+
+
+
+
+
 # for n in Adventurer.get_all():
+#     print(n)
+# print(Adventurer.get_by_id(6))
+# print(Adventurer.get_by_name("Glo"))
+# for n in Adventurer.get_job("Director"):
+#     print(n)
+# for n in Adventurer.get_alignment("Social"):
 #     print(n)

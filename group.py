@@ -203,5 +203,3 @@ class Group:
 #     print(n)
 # for n in Group.get_city("Len City"):
 #     print(n)
-# for n in Group.get_all():
-#     print(n)
