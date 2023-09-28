@@ -63,13 +63,14 @@ class Group:
         else:
             raise ValueError(f"{string.capwords(city)} is not a valid city in {self.continent}.")
         
+    # Creating, Deleting, and Saving the Table
     @classmethod
     def make_table(cls):
         sql = """
             CREATE TABLE IF NOT EXISTS groups (
             id INTEGER PRIMARY KEY,
             name TEXT,
-            contintent TEXT,
+            continent TEXT,
             city TEXT)
         """
         CURSOR.execute(sql)
@@ -82,18 +83,56 @@ class Group:
         """
         CURSOR.execute(sql)
         CONN.commit()
-
-    def new_row(self):
+    
+    def save_new_row(self):
         sql = """
             INSERT INTO groups (name, continent, city)
             VALUES (?, ?, ?)
         """
         CURSOR.execute(sql,(self.name, self.continent, self.city))
         CONN.commit()
+        self.id = CURSOR.lastrowid
+        type(self).all[self.id] = self #(this adds it to the 'all' dictionary, with the new self.id as the key!)
+    #==================================
+    # CRUD for the SQL Database
+    @classmethod
+    def create(cls, name, continent, city):
+        group = cls(name, continent, city)
+        group.save_new_row()
+        return group
+    
+    def update(self):
+        sql = """
+        UPDATE groups
+        SET name = ?, continent = ?, city = ?
+        WHERE id = ?
+        """
+        CURSOR.execute(sql, (self.name, self.continent, self.city, self.id))
+        CONN.commit()
 
+    def delete(self):
+        sql = """
+        DELETE FROM groups
+        WHERE id = ?
+        """
+        CURSOR.execute(sql, (self.id,))
+        CONN.commit()
+        del type(self).all[self.id] #(removes from 'all' dictionary)
+        self.id = None #(no key associated with that id)
+    #==================================
+    
+
+
+
+
+Group.remove_table()
+Group.make_table()
+ala = Group.create("Ala's Defilers", "Jidoth", "Lord's Port")
 # ala = Group("Ala's Defilers", "jidoth", "Lord's Port", 1)
-# print(ala)
+becco = Group.create("Becco", "Mollen", "len city")
 # becco = Group("Becco", "Mollen", "len city", 2)
 # print(becco)
 # ciolta = Group("Ciolta", "RISE", "Expanse", 3)
 # print(ciolta)
+for n in Group.all:
+    print(Group.all[n])
