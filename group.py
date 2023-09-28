@@ -123,7 +123,7 @@ class Group:
     # Class Methods to view Group Information
 
     @classmethod
-    def row_from_database(cls, row):
+    def instance_from_database(cls, row):
         group = cls.all.get(row[0])
         if group:
             group.name = row[1]
@@ -134,6 +134,7 @@ class Group:
             group.id = row[0]
             cls.all[group.id] = group
         return group
+        # just a mediator method for the other methods that actually let one view the contents of the database
     
     @classmethod
     def get_all(cls):
@@ -142,7 +143,29 @@ class Group:
         FROM groups
         """
         database = CURSOR.execute(sql).fetchall()
-        return [cls.row_from_database(n) for n in database]
+        return [cls.instance_from_database(n) for n in database]
+    
+    @classmethod
+    def get_by_id(cls, id):
+        sql = """
+        SELECT *
+        FROM groups
+        WHERE id = ?
+        """
+        n = CURSOR.execute(sql, (id,)).fetchone()
+        return cls.instance_from_database(n) if n else None
+    
+    @classmethod
+    def get_by_name(cls, name):
+        sql = """
+        SELECT *
+        FROM groups
+        WHERE name = ?
+        """
+        n = CURSOR.execute(sql, (name,)).fetchone()
+        return cls.instance_from_database(n) if n else None
+    
+
 
 
 
@@ -152,5 +175,8 @@ Group.make_table()
 ala = Group.create("The Party of Ala", "Jidoth", "Lord's Port")
 becco = Group.create("Becco", "Mollen", "len city")
 ciolta = Group.create("Ciolta's Lookouts", "RISE", "expanse")
-for n in Group.get_all():
-    print(n)
+destructors = Group.create("The Destructors", "Mollen", "vanna's perch")
+# for n in Group.get_all():
+#     print(n)
+print(Group.get_by_id(2))
+print(Group.get_by_name("The Party of Ala"))
