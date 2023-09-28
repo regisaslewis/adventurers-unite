@@ -38,13 +38,16 @@ class Adventurer:
         name_ = f"Adventurer {self.id}: {self.name}"
         job_ = f"Job: {self.job} |{self.level}|"   
         alignment_ = f"Alignment: {self.alignment}"
+        group_ = f"Group:({self.group_id}) {Group.get_by_id(self.group_id).name}"
         def pick_length():
-            if len(name_) >= len(job_) and len(name_) >= len(alignment_):
+            if len(name_) >= len(job_) and len(name_) >= len(alignment_) and len(name_) >= len(group_):
                 return "_" * len(name_)
-            if len(job_) >= len(alignment_):
+            if len(job_) >= len(alignment_) and len(job_) >= len(group_):
                 return "_" * len(job_)
-            return "_" * len(alignment_)
-        return f"{pick_length()}\n{name_}\n{job_}\n{alignment_}\nGroup ID: {self.group_id}\n{pick_length()}"
+            if len(alignment_) >= len(group_):
+                return "_" * len(alignment_)
+            return "_" * len(group_)
+        return f"{pick_length()}\n{name_}\n{job_}\n{alignment_}\n{group_}\n{pick_length()}"
     
     @property
     def name(self):
@@ -89,6 +92,18 @@ class Adventurer:
             self._level = level
         else:
             raise ValueError(f"Level must be a number between 1 and 20. (provided {level})")
+        
+    @property
+    def group_id(self):
+        return self._group_id
+    
+    @group_id.setter
+    def group_id(self, group_id):
+        if Group.get_by_id(group_id) and (Group.get_by_id(group_id).members < 4):
+            Group.get_by_id(group_id).members += 1
+            self._group_id = group_id
+        else:
+            raise ValueError("Full Group or Invalid Group ID#")
     
     # Creating, Deleting, and Saving the Table
     @classmethod
@@ -114,7 +129,7 @@ class Adventurer:
         CURSOR.execute(sql)
         CONN.commit()
 
-    def save(self):
+    def save_new_row(self):
         sql = """
         INSERT INTO adventurers (name, alignment, job, level, group_id)
         VALUES(?, ?, ?, ?, ?)
@@ -125,13 +140,54 @@ class Adventurer:
         type(self).all[self.id] = self
     #==================================
     # CRUD for the SQL Database
+    @classmethod
+    def create(cls, name, alignment, job, level, group_id):
+        adv = cls(name, alignment, job, level, group_id)
+        adv.save_new_row()
+        return adv
+    
+    def update(self):
+        sql = """
+        UPDATE adventurers
+        SET name = ?, alignment = ?, job = ?, level = ?, group_id = ?
+        """
+        CURSOR.execute(sql, (self.name, self.alignment, self.job, self.level, self.group_id))
+        CONN.commit()
 
-        
-# adam = Adventurer("adam", "social", "preacher", 12, 1, 1)
-# print(adam)
-# banderax = Adventurer("Banderax", "PHILANTHROPIC", "FeRaL", 20, 1, 2)
-# print(banderax)
-# collest = Adventurer("Collest", "Religious", "HopeLess", 18, 1, 3)
-# print(collest)
-# duotim = Adventurer("Duotim Penrose IV", "Political", "director", 10, 1, 4)
-# print(duotim)
+    def delete(self):
+        sql = """
+        DELETE FROM adventurers
+        WHERE id = ?
+        """
+        CURSOR.execute(sql, (self.id,))
+        CONN.commit()
+        del type(self).all[self.id]
+        self.id = None
+    #==================================
+    # Class Methods to Search Adventurer Information
+    @classmethod
+    def instance_from_database(cls, row):
+        adv = cls.all.get(row[0])
+        if adv:
+            adv.name = row[1]
+            adv.alignment = row[2]
+            adv.job = row[3]
+            adv.level = row[4]
+            adv.group_id = row[5]
+        else:
+            adv = cls(row[1], row[2], row[3], row[4], row[5])
+            adv.id = row[0]
+            cls.all[adv.id] = adv
+        return adv
+    
+    @classmethod
+    def get_all(cls):
+        sql = """
+        SELECT *
+        FROM adventurers
+        """
+        database = CURSOR.execute(sql).fetchall()
+        return [cls.instance_from_database(n) for n in database]
+    
+# for n in Adventurer.get_all():
+#     print(n)

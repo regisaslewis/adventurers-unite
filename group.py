@@ -17,6 +17,7 @@ class Group:
         self.name = name
         self.continent = continent
         self.city = city
+        self.members = 0
     
     def __repr__(self):
         name_ = f"Group {self.id}: {self.name}"
@@ -28,7 +29,7 @@ class Group:
             if len(cont_) >= len(city_):
                 return "_" * len(cont_)
             return "_" * len(city_)
-        return f"{pick_length()}\n{name_}\n{cont_}\n{city_}\n{pick_length()}"
+        return f"{pick_length()}\n{name_}\n{cont_}\n{city_}\nMembers: {self.members}/4\n{pick_length()}"
     
     @property
     def name(self):
