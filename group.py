@@ -11,13 +11,15 @@ CONTINENT = {
 class Group:
 
     all = {}
+    names = []
 
     def __init__(self, name, continent, city, id=None):
         self.id = id
-        self.name = name
+        self.name = self._is_unique_name(name)
         self.continent = continent
         self.city = city
         self.members = 0
+        Group.names.append(name.upper())
     
     def __repr__(self):
         name_ = f"Group {self.id}: {self.name}"
@@ -30,6 +32,11 @@ class Group:
                 return "_" * len(cont_)
             return "_" * len(city_)
         return f"{pick_length()}\n{name_}\n{cont_}\n{city_}\nMembers: {self.members}/4\n{pick_length()}"
+    
+    def _is_unique_name(self, name):
+        if name.upper() in Group.names:
+            raise ValueError("Name must be unique.")
+        return name
     
     @property
     def name(self):

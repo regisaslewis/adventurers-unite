@@ -25,14 +25,16 @@ ALIGNMENT = [
 class Adventurer:
 
     all = {}
+    names = []
 
     def __init__(self, name, alignment, job, level, group_id, id=None):
         self.id = id
-        self.name = name
+        self.name = self._is_unique_name(name)
         self.job = job
         self.alignment = alignment
         self.level = level
         self.group_id = group_id
+        Adventurer.names.append(name.upper())
 
     def __repr__(self):
         name_ = f"Adventurer {self.id}: {self.name}"
@@ -48,6 +50,11 @@ class Adventurer:
                 return "_" * len(alignment_)
             return "_" * len(group_)
         return f"{pick_length()}\n{name_}\n{job_}\n{alignment_}\n{group_}\n{pick_length()}"
+    
+    def _is_unique_name(self, name):
+        if name.upper() in Adventurer.names:
+            raise ValueError("Name must be unique.")
+        return name
     
     @property
     def name(self):
@@ -240,6 +247,6 @@ class Adventurer:
 # print(Adventurer.get_by_id(6))
 # print(Adventurer.get_by_name("Glo"))
 # for n in Adventurer.get_job("Director"):
-#     print(n)
+# #     print(n)
 # for n in Adventurer.get_alignment("Social"):
-#     print(n)
+#      print(n)
