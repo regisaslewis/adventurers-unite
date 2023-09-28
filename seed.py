@@ -11,3 +11,5 @@ def seed_sample():
     Group.create("The Destructors", "Mollen", "vanna's perch")
     Group.create("Ergo, Goodness", "Mollen", "Len City")
     Group.create("Fantico", "Mollen", "The Villages of Southern Aldon")
+
+seed_sample()
