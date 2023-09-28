@@ -4,7 +4,7 @@ import string
 CONTINENT = {
     "Bettle": ["Burg", "Hommoch", "Lei"],
     "Jidoth": ["Lord's Port", "Oth", "Tirena", "Videlsen"],
-    "Mollen": ["Aldon", "Exigot", "Len City", "Pelta", "Vanna's Perch"],
+    "Mollen": ["Aldon", "Exigot", "Len City", "Pelta", "The Villages Of Southern Aldon", "Vanna's Perch"],
     "Rise": ["Expanse", "Mouth", "Shelf"]
 }
 
@@ -145,6 +145,26 @@ class Group:
         database = CURSOR.execute(sql).fetchall()
         return [cls.instance_from_database(n) for n in database]
     
+    @classmethod    
+    def get_continent(cls, continent):
+        sql = """
+        SELECT *
+        FROM groups
+        WHERE continent = ?
+        """
+        groups = CURSOR.execute(sql, (continent,)).fetchall()
+        return [cls.instance_from_database(n) for n in groups]
+    
+    @classmethod
+    def get_city(cls, city):
+        sql = """
+        SELECT *
+        FROM groups
+        WHERE city = ?
+        """
+        groups = CURSOR.execute(sql, (city,)).fetchall()
+        return [cls.instance_from_database(n) for n in groups]
+    
     @classmethod
     def get_by_id(cls, id):
         sql = """
@@ -176,7 +196,13 @@ ala = Group.create("The Party of Ala", "Jidoth", "Lord's Port")
 becco = Group.create("Becco", "Mollen", "len city")
 ciolta = Group.create("Ciolta's Lookouts", "RISE", "expanse")
 destructors = Group.create("The Destructors", "Mollen", "vanna's perch")
+ergo = Group.create("Ergo, Goodness", "Mollen", "Len City")
+fantico = Group.create("Fantico", "Mollen", "The Villages of Southern Aldon")
 # for n in Group.get_all():
 #     print(n)
-print(Group.get_by_id(2))
-print(Group.get_by_name("The Party of Ala"))
+# print(Group.get_by_id(2))
+# print(Group.get_by_name("The Party of Ala"))
+for n in Group.get_continent("Mollen"):
+    print(n)
+# for n in Group.get_city("Len City"):
+#     print(n)
