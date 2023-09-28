@@ -28,7 +28,7 @@ class Group:
             if len(cont_) >= len(city_):
                 return "_" * len(cont_)
             return "_" * len(city_)
-        return f"{name_}\n{cont_}\n{city_}\n{pick_length()}"
+        return f"{pick_length()}\n{name_}\n{cont_}\n{city_}\n{pick_length()}"
     
     @property
     def name(self):
@@ -118,21 +118,39 @@ class Group:
         CURSOR.execute(sql, (self.id,))
         CONN.commit()
         del type(self).all[self.id] #(removes from 'all' dictionary)
-        self.id = None #(no key associated with that id)
+        self.id = None #(key no longer associated with that id)
     #==================================
+    # Class Methods to view Group Information
+
+    @classmethod
+    def row_from_database(cls, row):
+        group = cls.all.get(row[0])
+        if group:
+            group.name = row[1]
+            group.continent = row[2]
+            group.city = row[3]
+        else:
+            group = cls(row[1], row[2], row[3])
+            group.id = row[0]
+            cls.all[group.id] = group
+        return group
     
+    @classmethod
+    def get_all(cls):
+        sql = """
+        SELECT *
+        FROM groups
+        """
+        database = CURSOR.execute(sql).fetchall()
+        return [cls.row_from_database(n) for n in database]
 
 
 
 
 Group.remove_table()
 Group.make_table()
-ala = Group.create("Ala's Defilers", "Jidoth", "Lord's Port")
-# ala = Group("Ala's Defilers", "jidoth", "Lord's Port", 1)
+ala = Group.create("The Party of Ala", "Jidoth", "Lord's Port")
 becco = Group.create("Becco", "Mollen", "len city")
-# becco = Group("Becco", "Mollen", "len city", 2)
-# print(becco)
-# ciolta = Group("Ciolta", "RISE", "Expanse", 3)
-# print(ciolta)
-for n in Group.all:
-    print(Group.all[n])
+ciolta = Group.create("Ciolta's Lookouts", "RISE", "expanse")
+for n in Group.get_all():
+    print(n)

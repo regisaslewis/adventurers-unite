@@ -44,7 +44,7 @@ class Adventurer:
             if len(job_) >= len(alignment_):
                 return "_" * len(job_)
             return "_" * len(alignment_)
-        return f"{name_}\n{job_}\n{alignment_}\nGroup ID: {self.group_id}\n{pick_length()}"
+        return f"{pick_length()}\n{name_}\n{job_}\n{alignment_}\nGroup ID: {self.group_id}\n{pick_length()}"
     
     @property
     def name(self):
