@@ -31,5 +31,3 @@ def seed_sample():
 seed_sample()
 print("Example Groups seeded.")
 print("Example Adventurers seeded")
-print(Group.members(Group.get_by_id(1)))
-print(Group.get_by_id(1))
