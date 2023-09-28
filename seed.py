@@ -24,7 +24,6 @@ def seed_sample():
     Adventurer.create("Franky", "Apathetic", "Zealot", 12, 1)
     Adventurer.create("Glo", "Commercial", "Director", 1, 8)
     Adventurer.create("Helena Forsyth", "Social", "Director", 8, 5)
-    Adventurer.create("ADAM", "social", "Brawler", 1, 5)
 
 seed_sample()
 print("Example Groups seeded.")
