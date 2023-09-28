@@ -24,7 +24,12 @@ def seed_sample():
     Adventurer.create("Franky", "Apathetic", "Zealot", 12, 1)
     Adventurer.create("Glo", "Commercial", "Director", 1, 8)
     Adventurer.create("Helena Forsyth", "Social", "Director", 8, 5)
+    Adventurer.create("Inicio", "social", "preacher", 14, 5)
+    
+
 
 seed_sample()
 print("Example Groups seeded.")
 print("Example Adventurers seeded")
+print(Group.members(Group.get_by_id(1)))
+print(Group.get_by_id(1))

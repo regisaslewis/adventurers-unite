@@ -35,6 +35,10 @@ class Adventurer:
         self.level = level
         self.group_id = group_id
         Adventurer.names.append(name.upper())
+        if Group.get_by_id(self._group_id).members < 4:
+            Group.get_by_id(self._group_id).members += 1
+        else:
+            raise ValueError("Group Full")
 
     def __repr__(self):
         name_ = f"Adventurer {self.id}: {self.name}"
@@ -53,7 +57,7 @@ class Adventurer:
     
     def _is_unique_name(self, name):
         if name.upper() in Adventurer.names:
-            raise ValueError("Name must be unique.")
+            raise ValueError("Adventurer's name must be unique.")
         return name
     
     @property
@@ -106,25 +110,23 @@ class Adventurer:
     
     @group_id.setter
     def group_id(self, group_id):
-        if Group.get_by_id(group_id) and (Group.get_by_id(group_id).members < 4):
-            Group.get_by_id(group_id).members += 1
-            # Check to make sure the group isn't full (4/4), add one member to group if it is not.
+        if Group.get_by_id(group_id):
             self._group_id = group_id
         else:
-            raise ValueError("Full Group or Invalid Group ID#")
+            raise ValueError("Invalid Group ID#")
     
     # Creating, Deleting, and Saving the Table
     @classmethod
     def make_table(cls):
         sql = """
-        CREATE TABLE IF NOT EXISTS adventurers (
-        id INTEGER PRIMARY KEY,
-        name TEXT,
-        alignment TEXT,
-        job TEXT,
-        level INTEGER,
-        group_id INTEGER,
-        FOREIGN KEY (group_id) REFERENCES groups(id))
+            CREATE TABLE IF NOT EXISTS adventurers (
+            id INTEGER PRIMARY KEY,
+            name TEXT,
+            alignment TEXT,
+            job TEXT,
+            level INTEGER,
+            group_id INTEGER,
+            FOREIGN KEY (group_id) REFERENCES groups(id))
         """
         CURSOR.execute(sql)
         CONN.commit()
@@ -132,15 +134,15 @@ class Adventurer:
     @classmethod
     def remove_table(cls):
         sql = """
-        DROP TABLE IF EXISTS adventurers;
+            DROP TABLE IF EXISTS adventurers;
         """
         CURSOR.execute(sql)
         CONN.commit()
 
     def save_new_row(self):
         sql = """
-        INSERT INTO adventurers (name, alignment, job, level, group_id)
-        VALUES(?, ?, ?, ?, ?)
+            INSERT INTO adventurers (name, alignment, job, level, group_id)
+            VALUES(?, ?, ?, ?, ?)
         """
         CURSOR.execute(sql, (self.name, self.alignment, self.job, self.level, self.group_id))
         CONN.commit()
@@ -156,16 +158,16 @@ class Adventurer:
     
     def update(self):
         sql = """
-        UPDATE adventurers
-        SET name = ?, alignment = ?, job = ?, level = ?, group_id = ?
+            UPDATE adventurers
+            SET name = ?, alignment = ?, job = ?, level = ?, group_id = ?
         """
         CURSOR.execute(sql, (self.name, self.alignment, self.job, self.level, self.group_id))
         CONN.commit()
 
     def delete(self):
         sql = """
-        DELETE FROM adventurers
-        WHERE id = ?
+            DELETE FROM adventurers
+            WHERE id = ?
         """
         CURSOR.execute(sql, (self.id,))
         CONN.commit()
@@ -191,8 +193,8 @@ class Adventurer:
     @classmethod
     def get_all(cls):
         sql = """
-        SELECT *
-        FROM adventurers
+            SELECT *
+            FROM adventurers
         """
         database = CURSOR.execute(sql).fetchall()
         return [cls.instance_from_database(n) for n in database]
@@ -200,9 +202,9 @@ class Adventurer:
     @classmethod
     def get_alignment(cls, alignment):
         sql = """
-        SELECT *
-        FROM adventurers
-        WHERE alignment = ?
+            SELECT *
+            FROM adventurers
+            WHERE alignment = ?
         """
         advs = CURSOR.execute(sql, (alignment,)).fetchall()
         return [cls.instance_from_database(n) for n in advs]
@@ -210,9 +212,9 @@ class Adventurer:
     @classmethod
     def get_job(cls, job):
         sql = """
-        SELECT *
-        FROM adventurers
-        WHERE job = ?
+            SELECT *
+            FROM adventurers
+            WHERE job = ?
         """
         advs = CURSOR.execute(sql, (job,)).fetchall()
         return [cls.instance_from_database(n) for n in advs]
@@ -221,9 +223,9 @@ class Adventurer:
     @classmethod
     def get_by_id(cls, id):
         sql = """
-        SELECT *
-        FROM adventurers
-        WHERE id = ?
+            SELECT *
+            FROM adventurers
+            WHERE id = ?
         """
         n = CURSOR.execute(sql, (id,)).fetchone()
         return cls.instance_from_database(n) if n else None
@@ -231,9 +233,9 @@ class Adventurer:
     @classmethod
     def get_by_name(cls, name):
         sql = """
-        SELECT *
-        FROM adventurers
-        WHERE name = ?
+            SELECT *
+            FROM adventurers
+            WHERE name = ?
         """
         n = CURSOR.execute(sql, (name,)).fetchone()
         return cls.instance_from_database(n) if n else None

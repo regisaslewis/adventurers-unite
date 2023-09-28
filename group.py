@@ -35,7 +35,7 @@ class Group:
     
     def _is_unique_name(self, name):
         if name.upper() in Group.names:
-            raise ValueError("Name must be unique.")
+            raise ValueError("Group's name must be unique.")
         return name
     
     @property
@@ -111,17 +111,17 @@ class Group:
     
     def update(self):
         sql = """
-        UPDATE groups
-        SET name = ?, continent = ?, city = ?
-        WHERE id = ?
+            UPDATE groups
+            SET name = ?, continent = ?, city = ?
+            WHERE id = ?
         """
         CURSOR.execute(sql, (self.name, self.continent, self.city, self.id))
         CONN.commit()
 
     def delete(self):
         sql = """
-        DELETE FROM groups
-        WHERE id = ?
+            DELETE FROM groups
+            WHERE id = ?
         """
         CURSOR.execute(sql, (self.id,))
         CONN.commit()
@@ -147,8 +147,8 @@ class Group:
     @classmethod
     def get_all(cls):
         sql = """
-        SELECT *
-        FROM groups
+            SELECT *
+            FROM groups
         """
         database = CURSOR.execute(sql).fetchall()
         return [cls.instance_from_database(n) for n in database]
@@ -156,9 +156,9 @@ class Group:
     @classmethod    
     def get_continent(cls, continent):
         sql = """
-        SELECT *
-        FROM groups
-        WHERE continent = ?
+            SELECT *
+            FROM groups
+            WHERE continent = ?
         """
         groups = CURSOR.execute(sql, (continent,)).fetchall()
         return [cls.instance_from_database(n) for n in groups]
@@ -166,9 +166,9 @@ class Group:
     @classmethod
     def get_city(cls, city):
         sql = """
-        SELECT *
-        FROM groups
-        WHERE city = ?
+            SELECT *
+            FROM groups
+            WHERE city = ?
         """
         groups = CURSOR.execute(sql, (city,)).fetchall()
         return [cls.instance_from_database(n) for n in groups]
@@ -176,9 +176,9 @@ class Group:
     @classmethod
     def get_by_id(cls, id):
         sql = """
-        SELECT *
-        FROM groups
-        WHERE id = ?
+            SELECT *
+            FROM groups
+            WHERE id = ?
         """
         n = CURSOR.execute(sql, (id,)).fetchone()
         return cls.instance_from_database(n) if n else None
@@ -186,12 +186,23 @@ class Group:
     @classmethod
     def get_by_name(cls, name):
         sql = """
-        SELECT *
-        FROM groups
-        WHERE name = ?
+            SELECT *
+            FROM groups
+            WHERE name = ?
         """
         n = CURSOR.execute(sql, (name,)).fetchone()
         return cls.instance_from_database(n) if n else None
+
+    def members(self):
+        from adventurer import Adventurer
+        sql = """
+            SELECT * FROM adventurers
+            WHERE group_id = ?
+        """
+        CURSOR.execute(sql, (self.id,),)
+        advs = CURSOR.fetchall()
+        return [Adventurer.instance_from_database(n) for n in advs]
+
     
 
 
