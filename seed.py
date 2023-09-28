@@ -1,6 +1,6 @@
 from __init__ import CONN, CURSOR
-from group import Group
-from adventurer import Adventurer
+from classes.group import Group
+from classes.adventurer import Adventurer
 
 def seed_sample():
     Group.remove_table()
@@ -31,3 +31,4 @@ def seed_sample():
 seed_sample()
 print("Example Groups seeded.")
 print("Example Adventurers seeded")
+print(Group.get_by_id(1))

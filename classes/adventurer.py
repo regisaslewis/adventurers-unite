@@ -1,5 +1,5 @@
 from __init__ import CURSOR, CONN
-from group import Group
+from classes.group import Group
 
 JOB = [
     "Brawler",
