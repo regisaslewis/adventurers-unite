@@ -194,7 +194,7 @@ class Group:
         return cls.instance_from_database(n) if n else None
 
     def members(self):
-        from classes.adventurer import Adventurer
+        from adventurer import ASventurer
         sql = """
             SELECT * FROM adventurers
             WHERE group_id = ?
