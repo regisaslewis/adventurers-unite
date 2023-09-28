@@ -16,7 +16,7 @@ ALIGNMENT = [
     "Apathetic",
     "Anarchic",
     "Commercial",
-    "Philanthropical",
+    "Philanthropic",
     "Political",
     "Religious",
     "Social"
@@ -53,7 +53,7 @@ class Adventurer:
     @name.setter
     def name(self, name):
         if isinstance(name, str) and len(name):
-            self._name = name.capitalize()
+            self._name = name
         else:
             raise ValueError("Name must be a non-empty string.")
         
@@ -91,11 +91,11 @@ class Adventurer:
             raise ValueError(f"Level must be a number between 1 and 20. (provided {level})")
 
         
-# adam = Adventurer("adam", "social", "preacher", 12, 1, 1)
-# print(adam)
-# banderax = Adventurer("Banderax", "PHILANTHROPICAL", "FeRaL", 20, 1, 2)
-# print(banderax)
-# collest = Adventurer("Collest", "Religious", "Hopeless", 18, 1, 3)
-# print(collest)
-# duotim = Adventurer("Duotim", "Political", "director", 10, 1, 4)
-# print(duotim)
+adam = Adventurer("adam", "social", "preacher", 12, 1, 1)
+print(adam)
+banderax = Adventurer("Banderax", "PHILANTHROPIC", "FeRaL", 20, 1, 2)
+print(banderax)
+collest = Adventurer("Collest", "Religious", "HopeLess", 18, 1, 3)
+print(collest)
+duotim = Adventurer("Duotim Penrose IV", "Political", "director", 10, 1, 4)
+print(duotim)

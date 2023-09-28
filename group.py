@@ -62,6 +62,18 @@ class Group:
             self._city = string.capwords(city)
         else:
             raise ValueError(f"{string.capwords(city)} is not a valid city in {self.continent}.")
+        
+    @classmethod
+    def make_table(cls):
+        sql = """
+            CREATE TABLE IF NOT EXISTS groups (
+            id INTEGER PRIMARY KEY,
+            name TEXT,
+            contintent TEXT,
+            city TEXT)
+        """
+        CURSOR.execute(sql)
+        CONN.commit()
 
 # ala = Group("Ala's Defilers", "jidoth", "Lord's Port", 1)
 # print(ala)
