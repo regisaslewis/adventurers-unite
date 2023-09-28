@@ -189,20 +189,18 @@ class Group:
 
 
 
-
-Group.remove_table()
-Group.make_table()
-ala = Group.create("The Party of Ala", "Jidoth", "Lord's Port")
-becco = Group.create("Becco", "Mollen", "len city")
-ciolta = Group.create("Ciolta's Lookouts", "RISE", "expanse")
-destructors = Group.create("The Destructors", "Mollen", "vanna's perch")
-ergo = Group.create("Ergo, Goodness", "Mollen", "Len City")
-fantico = Group.create("Fantico", "Mollen", "The Villages of Southern Aldon")
-# for n in Group.get_all():
-#     print(n)
 # print(Group.get_by_id(2))
 # print(Group.get_by_name("The Party of Ala"))
-for n in Group.get_continent("Mollen"):
-    print(n)
+# indigo = Group.create("Indigo Cabinet", "Bettle", "Hommoch")
+# print(indigo)
+# indigo.name = "Indigo Parliament"
+# indigo.continent = "Mollen"
+# indigo.city = "Exigot"
+# indigo.update()
+# print(indigo)
+# for n in Group.get_continent("Rise"):
+#     print(n)
 # for n in Group.get_city("Len City"):
+#     print(n)
+# for n in Group.get_all():
 #     print(n)
