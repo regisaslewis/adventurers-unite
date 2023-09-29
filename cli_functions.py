@@ -33,7 +33,7 @@ def show_adventurer_by_name():
     adv = Adventurer.get_by_name(name)
     print(adv) if adv else print(f'"{name}" not found.')
 
-def show_groups_of_continent():
+def show_groups_by_continent():
     continent = input("All groups of which continent?: ")
     groups = Group.get_continent(continent)
     for n in groups:
@@ -139,7 +139,7 @@ def del_adventurer():
 # show_group_by_id()
 # show_group_by_name()
 # show_adventurer_by_name()
-# show_groups_of_continent()
+# show_groups_by_continent()
 
 
 # make_group()
