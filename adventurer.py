@@ -240,7 +240,7 @@ class Adventurer:
         n = CURSOR.execute(sql, (name,)).fetchone()
         return cls.instance_from_database(n) if n else None
     
-    def group(self):
+    def get_group(self):
         sql = """
             SELECT *
             FROM groups
@@ -262,4 +262,3 @@ class Adventurer:
 # #     print(n)
 # for n in Adventurer.get_alignment("Social"):
 #      print(n)
-print(f"{Adventurer.get_by_id(3).name}'s Group:\n", Adventurer.group(Adventurer.get_by_id(3)))

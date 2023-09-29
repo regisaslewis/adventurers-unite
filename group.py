@@ -193,7 +193,7 @@ class Group:
         n = CURSOR.execute(sql, (name,)).fetchone()
         return cls.instance_from_database(n) if n else None
 
-    def members(self):
+    def get_members(self):
         from adventurer import Adventurer
         sql = """
             SELECT * FROM adventurers
