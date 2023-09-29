@@ -26,13 +26,23 @@ def show_adventurer_by_id():
 def show_group_by_name():
     name = input("Group name: ")
     group = Group.get_by_name(name)
-    if group:
-        if group.name.lower() == name.lower():
-            print(group)
-    else:
-        print(f'Group "{name}" not found.')
+    print(group) if group else print(f'Group "{name}" not found.')
 
+def show_adventurer_by_name():
+    name = input("Adventurer's name: ")
+    adv = Adventurer.get_by_name(name)
+    print(adv) if adv else print(f'"{name}" not found.')
 
+def show_groups_of_continent():
+    continent = input("All groups of which continent?: ")
+    groups = Group.get_continent(continent)
+    for n in groups:
+        print(n)
+
+# PICK UP HERE!!!!!!!!!!!!!!!!!!!
+# def show_groups_by_city():
+# def show_adventurers_by_alignment():
+# def show_adventurers_by_job():
 
 def make_group():
     name = input("Group's name: ")
@@ -127,7 +137,11 @@ def del_adventurer():
 # show_all_groups()
 # show_adventurer_by_id()
 # show_group_by_id()
-show_group_by_name()
+# show_group_by_name()
+# show_adventurer_by_name()
+# show_groups_of_continent()
+
+
 # make_group()
 # make_adventurer()
 # update_group()
