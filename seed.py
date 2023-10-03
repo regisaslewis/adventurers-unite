@@ -7,7 +7,7 @@ def seed_sample():
     Adventurer.remove_table()
     Group.make_table()
     Adventurer.make_table()
-    a = Group.create("The Party of Ala", "Jidoth", "Lord's Port")
+    a = Group.create("The Party of Alax", "Jidoth", "Lord's Port")
     b = Group.create("Becco", "Mollen", "len city")
     c = Group.create("Ciolta's Lookouts", "RISE", "expanse")
     d = Group.create("The Destructors", "Mollen", "vanna's perch")

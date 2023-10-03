@@ -156,9 +156,8 @@ def delete_adventurer():
     id_ = input("Adventurer's ID#: ")
     if adv := Adventurer.get_by_id(id_):
         print(f"Deleting {adv.name}...")
-        Group.get_by_id(adv.group_id).members -= 1
         adv.delete()
-        print(f"Adventure {id_} deleted.")
+        print(f"Adventurer {id_} deleted.")
     else:
         print(f"Adventurer {id_} not found.")
 
@@ -169,23 +168,3 @@ def show_adventurers_by_group():
             print(n)
     else:
         print(f"Group {id_} not found.")
-
-
-# show_all_adventurers()
-# show_all_groups()
-# show_adventurer_by_id()
-# show_group_by_id()
-# show_group_by_name()
-# show_adventurer_by_name()
-# show_groups_by_continent()
-# show_groups_by_city()
-# show_adventurers_by_alignment()
-# show_adventurers_by_job()
-# show_adventurers_by_group()
-
-# make_group()
-# make_adventurer()
-# update_group()
-# update_adventurer()
-# delete_group()
-# del_adventurer()
