@@ -55,6 +55,8 @@ def main():
             update_adventurer()
         elif choice == "16":
             delete_adventurer()
+        else:
+            print("Error: Not an option.")
 
 
 
