@@ -210,13 +210,13 @@ class Group:
 
 # print(Group.get_by_id(2))
 # print(Group.get_by_name("The Party of Ala"))
-# indigo = Group.create("Indigo Cabinet", "Bettle", "Hommoch")
-# print(indigo)
-# indigo.name = "Indigo Parliament"
-# indigo.continent = "Mollen"
-# indigo.city = "Exigot"
-# indigo.update()
-# print(indigo)
+# jula = Group.create("Jula's Boys", "Bettle", "Hommoch")
+# print(jula)
+# jula.name = "Indigo Parliament"
+# jula.continent = "Mollen"
+# jula.city = "Exigot"
+# jula.update()
+# print(jula)
 # for n in Group.get_continent("Rise"):
 #     print(n)
 # for n in Group.get_city("Len City"):

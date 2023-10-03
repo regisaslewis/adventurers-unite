@@ -42,7 +42,7 @@ class Adventurer:
 
     def __repr__(self):
         name_ = f"Adventurer {self.id}: {self.name}"
-        job_ = f"Job: {self.job} |{self.level}|"   
+        job_ = f"Job: Level {self.level} {self.job}"   
         alignment_ = f"Alignment: {self.alignment}"
         group_ = f"Group:({self.group_id}) {Group.get_by_id(self.group_id).name}"
         def pick_length():
