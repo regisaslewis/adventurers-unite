@@ -1,5 +1,6 @@
 from group import Group
 from adventurer import Adventurer
+import string
 
 def exit_cli():
     print("Closing the Program...")
@@ -45,12 +46,12 @@ def show_groups_by_continent():
 
 def show_groups_by_city():
     city = input("City: ")
-    groups = Group.get_city(city.capitalize())
+    groups = Group.get_city(string.capwords(city))
     if len(groups) > 0:
         for n in groups:
             print(n)
     else:
-        print(f'Error: No Groups founded in "{city.capitalize()}".')
+        print(f'Error: No Groups founded in "{string.capwords(city)}".')
 
 def show_adventurers_by_alignment():
     alignment = input("Alignment: ")

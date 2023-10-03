@@ -28,6 +28,7 @@ def main():
         if choice == "0":
             exit_cli()
         elif choice == "1":
+            print("Group Options")
             group_submenu()
             gs_choice = input("=}===> ")
             if gs_choice == "0":
@@ -53,6 +54,7 @@ def main():
             else:
                 print("Error: Not an option")
         elif choice == "2":
+            print("Adventurer Options")
             adventurer_submenu()
             as_choice = input("=}===> ")
             if as_choice == "0":
@@ -104,7 +106,7 @@ def adventurer_submenu():
     print("3: Show an Adventurer by name")
     print("4: Show Adventurers by Alignment")
     print("5: Show Adventurers by Job")
-    print("6: Create a new Advetnurer")
+    print("6: Create a new Adventurer")
     print("7: Update an existing Adventurer")
     print("8: Delete an existing Adventurer")
 
