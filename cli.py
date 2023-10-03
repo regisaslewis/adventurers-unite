@@ -15,11 +15,13 @@ from cli_functions import(
     show_adventurers_by_job,
     make_adventurer,
     update_adventurer,
-    delete_adventurer
+    delete_adventurer,
+    show_adventurers_by_group
 )
 
 def main():
     while True:
+        menu()
         choice = input("-> ")
         if choice == "0":
             exit_cli()
@@ -55,10 +57,32 @@ def main():
             update_adventurer()
         elif choice == "16":
             delete_adventurer()
+        elif choice == "17":
+            show_adventurers_by_group()
         else:
             print("Error: Not an option.")
 
-
+def menu():
+    print("=" * len("Make your choice:"))
+    print("Make your choice:")
+    print("0: Close the Program")
+    print("1: Show all Groups")
+    print("2: Show a Group by ID#")
+    print("3: Show a Group by name")
+    print("4: Show Groups by continent")
+    print("5: Show Groups by city")
+    print("6: Create a new Group")
+    print("7: Update an existing Group")
+    print("8: Delete an existing Group")
+    print("9: Show all Adventurers")
+    print("10: Show an Adventurer by ID#")
+    print("11: Show an Adventurer by name")
+    print("12: Show Adventurers by Alignment")
+    print("13: Show Adventurers by Job")
+    print("14: Create a new Advetnurer")
+    print("15: Update an existing Adventurer")
+    print("16: Delete an existing Adventurer")
+    print("17: Show all Adventurers of a Group")
 
 if __name__ == "__main__":
     main()

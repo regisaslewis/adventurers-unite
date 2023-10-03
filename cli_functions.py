@@ -2,10 +2,11 @@ from group import Group
 from adventurer import Adventurer
 
 def exit_cli():
-    print("LEAVING INTERFACE")
+    print("Closing the Program...")
     exit()
 
 def show_all_groups():
+    Adventurer.get_all() #included to populate Group.members
     for n in Group.get_all():
         print(n)
 
@@ -145,6 +146,14 @@ def delete_adventurer():
     else:
         print(f"Adventurer {id_} not found.")
 
+def show_adventurers_by_group():
+    id_ = input("Group's ID#: ")
+    if group := Group.get_by_id(id_):
+        for n in group.get_members():
+            print(n)
+    else:
+        print(f"Group {id_} not found.")
+
 
 # show_all_adventurers()
 # show_all_groups()
@@ -156,6 +165,7 @@ def delete_adventurer():
 # show_groups_by_city()
 # show_adventurers_by_alignment()
 # show_adventurers_by_job()
+# show_adventurers_by_group()
 
 # make_group()
 # make_adventurer()
