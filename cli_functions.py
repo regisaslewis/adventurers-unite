@@ -135,7 +135,7 @@ def delete_group():
     else:
         print("Command not recognized.")
 
-def del_adventurer():
+def delete_adventurer():
     id_ = input("Adventurer's ID#: ")
     if adv := Adventurer.get_by_id(id_):
         print(f"Deleting {adv.name}...")
@@ -154,8 +154,8 @@ def del_adventurer():
 # show_adventurer_by_name()
 # show_groups_by_continent()
 # show_groups_by_city()
-show_adventurers_by_alignment()
-show_adventurers_by_job()
+# show_adventurers_by_alignment()
+# show_adventurers_by_job()
 
 # make_group()
 # make_adventurer()
