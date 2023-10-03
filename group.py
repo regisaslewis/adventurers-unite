@@ -18,7 +18,6 @@ class Group:
         self.name = self._is_unique_name(name)
         self.continent = continent
         self.city = city
-        self.members = 0
         Group.names.append(name.upper())
     
     def __repr__(self):
@@ -31,7 +30,7 @@ class Group:
             if len(cont_) >= len(city_):
                 return "_" * len(cont_)
             return "_" * len(city_)
-        return f"{pick_length()}\n{name_}\n{cont_}\n{city_}\nMembers: {self.members}/4\n{pick_length()}"
+        return f"{pick_length()}\n{name_}\n{cont_}\n{city_}\nMembers: {len(self.get_members())}/4\n{pick_length()}"
     
     def _is_unique_name(self, name):
         if name.upper() in Group.names:
@@ -55,10 +54,10 @@ class Group:
     
     @continent.setter
     def continent(self, continent):
-        if continent.title() in CONTINENT:
-            self._continent = continent.title()
+        if continent.capitalize() in CONTINENT:
+            self._continent = continent.capitalize()
         else:
-            raise ValueError(f"{continent.title()} is not a valid continent.")
+            raise ValueError(f"{continent.capitalize()} is not a valid continent.")
         
     @property
     def city(self):

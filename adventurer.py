@@ -35,10 +35,6 @@ class Adventurer:
         self.level = level
         self.group_id = group_id
         Adventurer.names.append(name.upper())
-        if Group.get_by_id(self._group_id).members < 4:
-            Group.get_by_id(self._group_id).members += 1
-        else:
-            raise ValueError("Group Full")
 
     def __repr__(self):
         name_ = f"Adventurer {self.id}: {self.name}"
@@ -249,16 +245,6 @@ class Adventurer:
         CURSOR.execute(sql, (self.group_id,),)
         group = CURSOR.fetchone()
         return Group.instance_from_database(group)
-
-
-
-
-
-# for n in Adventurer.get_all():
-#     print(n)
-# print(Adventurer.get_by_id(6))
-# print(Adventurer.get_by_name("Glo"))
-# for n in Adventurer.get_job("Director"):
-# #     print(n)
-# for n in Adventurer.get_alignment("Social"):
-#      print(n)
+    
+# print(Adventurer.get_by_name("Adam"))
+# print(Adventurer.get_by_name("adam"))

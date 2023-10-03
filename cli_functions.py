@@ -25,38 +25,51 @@ def show_adventurer_by_id():
     print(adv) if adv else print(f"Adventurer {id_} not found.")
 
 def show_group_by_name():
-    name = input("Group name: ")
+    name = input("Group name (case sensitive): ")
     group = Group.get_by_name(name)
     print(group) if group else print(f'Group "{name}" not found.')
 
 def show_adventurer_by_name():
-    name = input("Adventurer's name: ")
+    name = input("Adventurer's name (case sensitive): ")
     adv = Adventurer.get_by_name(name)
     print(adv) if adv else print(f'"{name}" not found.')
 
 def show_groups_by_continent():
     continent = input("Continent: ")
     groups = Group.get_continent(continent.capitalize())
-    for n in groups:
-        print(n)
+    if len(groups) > 0:
+        for n in groups:
+            print(n)
+    else:
+        print(f'Error: No Groups founded on "{continent.capitalize()}"')
 
 def show_groups_by_city():
     city = input("City: ")
     groups = Group.get_city(city.capitalize())
-    for n in groups:
-        print(n)
+    if len(groups) > 0:
+        for n in groups:
+            print(n)
+    else:
+        print(f'Error: No Groups founded in "{city.capitalize()}".')
 
 def show_adventurers_by_alignment():
     alignment = input("Alignment: ")
     advs = Adventurer.get_alignment(alignment.capitalize())
-    for n in advs:
-        print(n)
+    if len(advs) > 0:
+        for n in advs:
+            print(n)
+    else:
+        print(f'Error: No "{alignment.capitalize()}" Adventurers found.')
 
 def show_adventurers_by_job():
     job = input("Job: ")
     advs = Adventurer.get_job(job.capitalize())
-    for n in advs:
-        print(n)
+    if len(advs) > 0:
+        for n in advs:
+            print(n)
+    else:
+        print(f'Error: No "{job.capitalize()}s" found.')
+
 
 def make_group():
     name = input("Group's name: ")
@@ -66,7 +79,7 @@ def make_group():
         group = Group.create(name, continent, city)
         print(f"{group}\nFOUNDED")
     except Exception as exc:
-        print(f"Group could not be founded: {exc}")
+        print(f"Error: Group could not be founded: {exc}")
     
 def make_adventurer():
     name = input("Name: ")
@@ -74,11 +87,14 @@ def make_adventurer():
     job = input("Job: ")
     level = input("Level: ")
     group_id = input("Group's ID#: ")
-    try:
-        adv = Adventurer.create(name, alignment, job, int(level), int(group_id))
-        print(f"{adv}\nCREATED")
-    except Exception as exc:
-        print(f"Adventurer could not be created: {exc}")
+    if len(Group.get_by_id(group_id).get_members()) < 4:
+        try:
+            adv = Adventurer.create(name, alignment, job, int(level), int(group_id))
+            print(f"{adv}\nCREATED")
+        except Exception as exc:
+            print(f"Adventurer could not be created: {exc}")
+    else:
+        print(f'Error: Group "{Group.get_by_id(group_id).name}" is already full!')
 
 def update_group():
     id_ = input("Group's ID#: ")
@@ -93,9 +109,9 @@ def update_group():
             group.update()
             print(f"{group}\nUPDATED")
         except Exception as exc:
-            print(f"Group not updated: {exc}")
+            print(f"Error: Group not updated: {exc}")
     else:
-        print(f"Group {id_} not found.")
+        print(f"Error: Group {id_} not found.")
 
 def update_adventurer():
     id_ = input("Adventurer's ID#: ")
