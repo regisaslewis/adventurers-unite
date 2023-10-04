@@ -131,7 +131,7 @@ def update_adventurer():
             adv.update()
             print(f"{adv}\nUPDATED")
         except Exception as exc:
-            print(f"Adventurer not updated: {exc}")
+            print(f"Error: Adventurer not updated: {exc}")
     else:
         print(f"Adventurer {id_} not found.")
 

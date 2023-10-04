@@ -156,8 +156,9 @@ class Adventurer:
         sql = """
             UPDATE adventurers
             SET name = ?, alignment = ?, job = ?, level = ?, group_id = ?
+            WHERE id = ?
         """
-        CURSOR.execute(sql, (self.name, self.alignment, self.job, self.level, self.group_id))
+        CURSOR.execute(sql, (self.name, self.alignment, self.job, self.level, self.group_id, self.id))
         CONN.commit()
 
     def delete(self):
