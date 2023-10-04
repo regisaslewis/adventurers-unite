@@ -25,9 +25,16 @@ Then, a new Adventurer can be created with option 6.
 ![Create an Adventurer](images/Adventurer%20Create.png)
 
 When creating a new Adventurer, a user must choose their Personality Alignment and Job.
-| Alignments: | Jobs: |
-| :---      |      ---: |
-|<table><tr>Apathetic</tr><tr>Anarchic</tr><tr>Commercial</tr><tr>Philanthropic</tr><tr>Political</tr><tr>Religious</tr><tr>Social</tr></table> | <table><tr>Brawler</tr><tr>Director</tr><tr>Feral</tr><tr>Hopeless</tr><tr>Lookout</tr><tr>Preacher</tr><tr>Shade</tr><tr>Zealot</tr></table> |
+| Alignments: | \| | Jobs: |
+| :---      |    :---:    |       ---: |
+| Apathetic | \| | Brawler|
+| Anarchic | \| | Director |
+| Commercial | \| | Feral |
+| Philanthropic | \| | Hopeless |
+| Political | \| | Lookout |
+| Religious | \| | Preacher |
+| Social | \| | Shade |
+|  | \| | Zealot |
 
 Sometimes, it's useful to see how other users have built their characters to get an idea of popular Alignments for particular Jobs.  Using option 4 of the Adventurer Options submenu will present all Adventurers of a particular alignment
 
