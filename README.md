@@ -20,6 +20,11 @@ Each of Silowan's 4 major continents are home to various cities, though only som
 | Continent: | Cities: |
 | :--- | :--- |
 | Bettle | Burg <br> Hommoch <br> Lei |
+| Jidoth | Lord's Port <br> Oth <br> Tirena <br> Videlsen |
+| Mollen | Aldon <br> Exigot <br> Len City <br> Pelta <br> The Villages of Southern Aldon  <br> Vanna's Perch |
+| Rise | Expanse <br> Mouth <br> Shelf |
+
+
 
 Select 2 for Adventurer Options.
 
