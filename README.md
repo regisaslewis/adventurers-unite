@@ -18,8 +18,8 @@ If no current Group has space or the user desires to lead their own group, selec
 
 Each of Silowan's 4 major continents are home to various cities, though only some are populous enough to support Adventuring Guilds.  A user must select their starting continent and then a city of sufficient size to support their new Group.
 | Continent: | Cities: |
-| :--- | ---: |
-| Bettle | Burg  \ Hommoch  \ Lei  \ |
+| :--- | :--- |
+| Bettle | Burg <br> Hommoch <br> Lei |
 
 Select 2 for Adventurer Options.
 
