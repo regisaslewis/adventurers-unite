@@ -12,6 +12,7 @@ Through the Adventurer's Unite Interface, a user can create their unique Adventu
 
 When creating a new Adventurer, a user must choose their Personality Alignment and Job.
 | Alignments: | Jobs: |
+| --- | --- |
 | Apathetic | Brawler|
 | Anarchic | Director |
 | Commercial | Feral |
