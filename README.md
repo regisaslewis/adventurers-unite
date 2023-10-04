@@ -6,23 +6,23 @@ Amass power or wealth.  Raise glory to your god.  Uplift the destitute.  Or mere
 No matter what, it will take the combined efforts of a Group to succeed.  Be they temporary allies, dear friends, or even endentured subordinates, one must rely on others.
 
 ## The Adventurer's Unite Interface
-![Main Menu](photos/Main%20Menu.png)
+![Main Menu](images/Main%20Menu.png)
 
 The first task for a user is to either select a group to join or create one of their own. Selecting option 2 will take open up the Group Options, where information can be gathered.
 
-![Group Options](photos/Group%20Options.png)
+![Group Options](images/Group%20Options.png)
 
 If no current Group has space or the user desires to lead their own group, selecting option 6 will begin the process.
 
-![Create a Group](photos/Group%20Create.png)
+![Create a Group](images/Group%20Create.png)
 
 Select 2 for Adventurer Options.
 
-![Adventurer Options](photos/Adventurer%20Options.png)
+![Adventurer Options](images/Adventurer%20Options.png)
 
 Then, a new Adventurer can be created with option 6.
 
-![Create an Adventurer](photos/Adventurer%20Create.png)
+![Create an Adventurer](images/Adventurer%20Create.png)
 
 When creating a new Adventurer, a user must choose their Personality Alignment and Job.
 | Alignments: | \| | Jobs: |
@@ -38,7 +38,7 @@ When creating a new Adventurer, a user must choose their Personality Alignment a
 
 Sometimes, it's useful to see how other users have built their characters to get an idea of popular Alignments for particular Jobs.  Using option 4 of the Adventurer Options submenu will present all Adventurers of a particular alignment
 
-![Adventurer by Alignment](photos/Adventurer%20by%20Alignment.png)
+![Adventurer by Alignment](images/Adventurer%20by%20Alignment.png)
 
 CONTINENT = {
     "Bettle": ["Burg", "Hommoch", "Lei"],
@@ -48,5 +48,5 @@ CONTINENT = {
 }
 
 
-![Group by City](photos/Group%20by%20City.png)
-![Group Members](photos/Group%20Members%20by%20Group%20ID.png)
+![Group by City](images/Group%20by%20City.png)
+![Group Members](images/Group%20Members%20by%20Group%20ID.png)
