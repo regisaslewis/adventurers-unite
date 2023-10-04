@@ -18,13 +18,19 @@ If no current Group has space or the user desires to lead their own group, selec
 
 Each of Silowan's 4 major continents are home to various cities, though only some are populous enough to support Adventuring Guilds.  A user must select their starting continent and then a city of sufficient size to support their new Group.
 | Continent: | Cities: |
-| :--- | :--- |
+|  :---:  | :--- |
 | Bettle | Burg <br> Hommoch <br> Lei |
 | Jidoth | Lord's Port <br> Oth <br> Tirena <br> Videlsen |
 | Mollen | Aldon <br> Exigot <br> Len City <br> Pelta <br> The Villages of Southern Aldon  <br> Vanna's Perch |
 | Rise | Expanse <br> Mouth <br> Shelf |
 
+Crowded cities can offer a lively, bustling ecosystem of Adventurers, though this may also lead to intense competition for resources. The choice of where to begin is up to the Group's Founder.  With option 5, you can check to see how many Groups, if any, belong to a particular city.  
 
+![Group by City](images/Group%20by%20City.png)
+
+Once a Group is established, it's time to get moving.  If ever a user wishes to see the members of a particular group -- whether for scouting purposes or to get a read on competition -- option 9 provides detailed information of each member.
+
+![Group Members](images/Group%20Members%20by%20Group%20ID.png)
 
 Select 2 for Adventurer Options.
 
@@ -36,7 +42,7 @@ Then, a new Adventurer can be created with option 6.
 
 When creating a new Adventurer, a user must choose their Personality Alignment and Job.
 | Alignments: | \| | Jobs: |
-| :---      |    :---:    |       ---: |
+|  :---  |    :---:    |  :--- |
 | Apathetic | \| | Brawler|
 | Anarchic | \| | Director |
 | Commercial | \| | Feral |
@@ -50,13 +56,6 @@ Sometimes, it's useful to see how other users have built their characters to get
 
 ![Adventurer by Alignment](images/Adventurer%20by%20Alignment.png)
 
-CONTINENT = {
-    "Bettle": ["Burg", "Hommoch", "Lei"],
-    "Jidoth": ["Lord's Port", "Oth", "Tirena", "Videlsen"],
-    "Mollen": ["Aldon", "Exigot", "Len City", "Pelta", "The Villages Of Southern Aldon", "Vanna's Perch"],
-    "Rise": ["Expanse", "Mouth", "Shelf"]
-}
+There are more options to choose from, such as updating Groups or Adventurers to move around (or fix errors), deleting Groups that are disbanding or Adventurers who are retiring, and so on.
 
-
-![Group by City](images/Group%20by%20City.png)
-![Group Members](images/Group%20Members%20by%20Group%20ID.png)
+Go forth and make a mark on Silowan!
