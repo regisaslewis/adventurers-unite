@@ -9,7 +9,7 @@ No matter what, it will take the combined efforts of a Group to succeed.  Be the
 ![Main Menu](images/Main%20Menu.png)
 
 The first task for a user is to either select a group to join or create one of their own. Selecting option 2 will take open up the Group Options, where information can be gathered.
-
+### Group Options
 ![Group Options](images/Group%20Options.png)
 
 If no current Group has space or the user desires to lead their own group, selecting option 6 will begin the process.
@@ -32,8 +32,8 @@ Once a Group is established, it's time to get moving.  If ever a user wishes to 
 
 ![Group Members](images/Group%20Members%20by%20Group%20ID.png)
 
-Select 2 for Adventurer Options.
-
+Now that a Group is decided on, it's time for the user to create their character.  From the main menu, select option 2 for a list of Adventurer Options.
+### Adventurer Options
 ![Adventurer Options](images/Adventurer%20Options.png)
 
 Then, a new Adventurer can be created with option 6.
