@@ -58,4 +58,4 @@ Sometimes, it's useful to see how other users have built their characters to get
 
 There are more options to choose from, such as updating Groups or Adventurers to move around (or fix errors), deleting Groups that are disbanding or Adventurers who are retiring, and so on.
 
-Go forth and make a mark on Silowan!
+Go forth, Adventurer, and with your allies make an indombitable mark on Silowan!

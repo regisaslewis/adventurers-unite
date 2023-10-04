@@ -245,6 +245,3 @@ class Adventurer:
         CURSOR.execute(sql, (self.group_id,),)
         group = CURSOR.fetchone()
         return Group.instance_from_database(group)
-    
-# print(Adventurer.get_by_name("Adam"))
-# print(Adventurer.get_by_name("adam"))
