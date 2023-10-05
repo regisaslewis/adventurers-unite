@@ -101,16 +101,19 @@ def update_group():
     id_ = input("Group's ID#: ")
     if group := Group.get_by_id(id_):
         try:
-            name = input(f"New name (prev {group.name}): ")
+            name = input(f"New name prev: {group.name}): ")
+            if name != Group.get_by_id(id_).name:
+                if name.upper() in [n.name.upper() for n in Group.get_all()]:
+                    raise ValueError("Name is already taken.")
             group.name = name
-            continent = input(f"New home continent (prev {group.continent}): ")
+            continent = input(f"New home continent (prev: {group.continent}): ")
             group.continent = continent
-            city = input(f"New founding city (prev {group.city}): ")
+            city = input(f"New founding city (prev: {group.city}): ")
             group.city = city
             group.update()
             print(f"{group}\nUPDATED")
         except Exception as exc:
-            print(f"Error: Group not updated: {exc}")
+            print(f"Group NOT updated: {exc}")
     else:
         print(f"Error: Group {id_} not found.")
 
@@ -118,20 +121,29 @@ def update_adventurer():
     id_ = input("Adventurer's ID#: ")
     if adv := Adventurer.get_by_id(id_):
         try:
-            name = input(f"New name (prev {adv.name}): ")
+            name = input(f"New name (prev: {adv.name}): ")
+            if name != Adventurer.get_by_id(id_).name:
+                if name.upper() in [n.name.upper() for n in Adventurer.get_all()]:
+                    raise ValueError("Name is already taken.")
             adv.name = name
-            alignment = input(f"New alignment (prev {adv.alignment}): ")
+            alignment = input(f"New alignment (prev: {adv.alignment}): ")
             adv.alignment = alignment
-            job = input(f"New job (prev {adv.job}): ")
+            job = input(f"New job (prev: {adv.job}): ")
             adv.job = job
-            level = input(f"New level (prev {adv.level}): ")
+            level = input(f"New level (prev: {adv.level}): ")
             adv.level = int(level)
-            group_id = input(f"New Group ID# (prev ({Group.get_by_id(adv.group_id).id}) {Group.get_by_id(adv.group_id).name}): ")
-            adv.group_id = int(group_id)
-            adv.update()
-            print(f"{adv}\nUPDATED")
+            group_id = input(f"New Group ID# (prev: ({Group.get_by_id(adv.group_id).id}) {Group.get_by_id(adv.group_id).name}): ")
+            if Group.get_by_id(group_id):
+                if len(Group.get_by_id(group_id).get_members()) < 4:
+                    adv.group_id = int(group_id)
+                    adv.update()
+                    print(f"{adv}\nUPDATED")
+                else:
+                    raise ValueError("Group is full!")
+            else:
+                raise ValueError("Group does not exist.")
         except Exception as exc:
-            print(f"Error: Adventurer not updated: {exc}")
+            print(f"Adventurer NOT updated: {exc}")
     else:
         print(f"Adventurer {id_} not found.")
 

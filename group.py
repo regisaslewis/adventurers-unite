@@ -35,7 +35,8 @@ class Group:
     def _is_unique_name(self, name):
         if name.upper() in Group.names:
             raise ValueError("Group's name must be unique.")
-        return name
+        else:
+            return name
     
     @property
     def name(self):

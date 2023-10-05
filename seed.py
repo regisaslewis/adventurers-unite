@@ -18,7 +18,7 @@ def seed_sample():
 
     Adventurer.create("adam", "social", "preacher", 12, b.id)
     Adventurer.create("Banderax", "PHILANTHROPIC", "FeRaL", 20, a.id)
-    Adventurer.create("Collest", "Religious", "HopeLess", 18, a.id)
+    Adventurer.create("Collest", "Religious", "Wanderer", 18, a.id)
     Adventurer.create("Duotim Penrose IV", "Political", "director", 10, a.id)
     Adventurer.create("Ed G.G. Lodo", "Anarchic", "lookout", 3, c.id)
     Adventurer.create("Franky", "Apathetic", "Zealot", 12, a.id)

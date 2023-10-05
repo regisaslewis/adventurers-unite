@@ -5,10 +5,10 @@ JOB = [
     "Brawler",
     "Director",
     "Feral",
-    "Hopeless",
     "Lookout",
     "Preacher",
     "Shade",
+    "Wanderer",
     "Zealot"
 ]
 
@@ -38,18 +38,15 @@ class Adventurer:
 
     def __repr__(self):
         name_ = f"Adventurer {self.id}: {self.name}"
-        job_ = f"Job: Level {self.level} {self.job}"   
-        alignment_ = f"Alignment: {self.alignment}"
+        desc_ = f"Level {self.level} {self.alignment} {self.job}"
         group_ = f"Group:({self.group_id}) {Group.get_by_id(self.group_id).name}"
         def pick_length():
-            if len(name_) >= len(job_) and len(name_) >= len(alignment_) and len(name_) >= len(group_):
+            if len(name_) >= len(desc_) and len(name_) >= len(group_):
                 return "_" * len(name_)
-            if len(job_) >= len(alignment_) and len(job_) >= len(group_):
-                return "_" * len(job_)
-            if len(alignment_) >= len(group_):
-                return "_" * len(alignment_)
+            if len(desc_) >= len(group_):
+                return "_" * len(desc_)
             return "_" * len(group_)
-        return f"{pick_length()}\n{name_}\n{job_}\n{alignment_}\n{group_}\n{pick_length()}"
+        return f"{pick_length()}\n{name_}\n{desc_}\n{group_}\n{pick_length()}"
     
     def _is_unique_name(self, name):
         if name.upper() in Adventurer.names:

@@ -46,10 +46,10 @@ When creating a new Adventurer, a user must choose their Personality Alignment a
 | Apathetic | \| | Brawler|
 | Anarchic | \| | Director |
 | Commercial | \| | Feral |
-| Philanthropic | \| | Hopeless |
-| Political | \| | Lookout |
-| Religious | \| | Preacher |
-| Social | \| | Shade |
+| Philanthropic | \| | Lookout |
+| Political | \| | Preacher |
+| Religious | \| | Shade |
+| Social | \| | Wanderer |
 |  | \| | Zealot |
 
 Sometimes, it's useful to see how other users have built their characters to get an idea of popular Alignments for particular Jobs.  Using option 4 of the Adventurer Options submenu will present all Adventurers of a particular alignment
