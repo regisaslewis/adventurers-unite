@@ -26,8 +26,6 @@ def seed_sample():
     Adventurer.create("Helena Forsyth", "Social", "Director", 8, g.id)
     Adventurer.create("Inicio", "social", "preacher", 14, e.id)
     
-
-
 seed_sample()
 print("Example Groups seeded.")
 print("Example Adventurers seeded.")
