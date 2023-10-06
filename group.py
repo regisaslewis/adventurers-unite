@@ -202,3 +202,9 @@ class Group:
         CURSOR.execute(sql, (self.id,),)
         advs = CURSOR.fetchall()
         return [Adventurer.instance_from_database(n) for n in advs]
+    
+    def is_full(self):
+        if len(self.get_members()) < 4:
+            return False
+        else:
+            return True

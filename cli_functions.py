@@ -101,8 +101,8 @@ def update_group():
     id_ = input("Group's ID#: ")
     if group := Group.get_by_id(id_):
         try:
-            name = input(f"New name prev: {group.name}): ")
-            if name != Group.get_by_id(id_).name:
+            name = input(f"New name (prev: {group.name}): ")
+            if name.upper() != Group.get_by_id(id_).name.upper():
                 if name.upper() in [n.name.upper() for n in Group.get_all()]:
                     raise ValueError("Name is already taken.")
             group.name = name
@@ -118,11 +118,12 @@ def update_group():
         print(f"Error: Group {id_} not found.")
 
 def update_adventurer():
+    full_groups = [n.id for n in Group.get_all() if n.is_full()]
     id_ = input("Adventurer's ID#: ")
     if adv := Adventurer.get_by_id(id_):
         try:
             name = input(f"New name (prev: {adv.name}): ")
-            if name != Adventurer.get_by_id(id_).name:
+            if name.upper() != Adventurer.get_by_id(id_).name.upper():
                 if name.upper() in [n.name.upper() for n in Adventurer.get_all()]:
                     raise ValueError("Name is already taken.")
             adv.name = name
@@ -134,14 +135,13 @@ def update_adventurer():
             adv.level = int(level)
             group_id = input(f"New Group ID# (prev: ({Group.get_by_id(adv.group_id).id}) {Group.get_by_id(adv.group_id).name}): ")
             if Group.get_by_id(group_id):
-                if len(Group.get_by_id(group_id).get_members()) < 4:
-                    adv.group_id = int(group_id)
-                    adv.update()
-                    print(f"{adv}\nUPDATED")
-                else:
-                    raise ValueError("Group is full!")
+                adv.group_id = group_id
             else:
                 raise ValueError("Group does not exist.")
+            if int(group_id) in full_groups:
+                raise ValueError(f'Group ({Group.get_by_id(group_id).id}) "{Group.get_by_id(group_id).name}" is full.')
+            adv.update()
+            print(f"{adv}\nUPDATED")
         except Exception as exc:
             print(f"Adventurer NOT updated: {exc}")
     else:
