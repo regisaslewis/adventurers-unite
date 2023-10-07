@@ -103,7 +103,8 @@ def make_adventurer():
         print(f'Error: Group "{Group.get_by_id(group_id).name}" is already full!')
 
 def update_group():
-    id_ = input("Group's ID#: ")
+    print("Choose Group:")
+    id_ = group_id_submenu()
     if group := Group.get_by_id(id_):
         try:
             name = input(f"New name (prev: {group.name}): ")
@@ -242,7 +243,7 @@ def adv_id_submenu():
 
 def group_id_submenu():
     for n in Group.get_all():
-        print(f"{n.id}: {n.name} {len(Group.get_by_id(n.id).get_members())}/4")
+        print(f"{n.id}: {n.name} [{len(Group.get_by_id(n.id).get_members())}/4]")
     group_choice = input("=}====> ")
     try:
         return group_choice
