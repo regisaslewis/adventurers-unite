@@ -1,7 +1,6 @@
 from __init__ import CURSOR, CONN
 from group import Group
 
-
 class Adventurer:
 
     JOB = [

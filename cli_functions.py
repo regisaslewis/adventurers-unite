@@ -77,7 +77,6 @@ def show_adventurers_by_job():
     else:
         print(f'Error: No "{job.capitalize()}s" found.')
 
-
 def make_group():
     name = input("Group's name: ")
     print("Home Continent: ")

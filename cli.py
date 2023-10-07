@@ -19,7 +19,6 @@ from cli_functions import(
     show_adventurers_by_group
 )
 
-
 def main():
     print("=" * len("|Adventurer's Unite!|"))
     print("|Adventurer's Unite!|")
@@ -110,7 +109,6 @@ def adventurer_submenu():
     print("6: Create a new Adventurer")
     print("7: Update an existing Adventurer")
     print("8: Delete an existing Adventurer")
-
 
 if __name__ == "__main__":
     main()
