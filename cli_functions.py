@@ -36,7 +36,8 @@ def show_adventurer_by_name():
     print(adv) if adv else print(f'"{name}" not found.')
 
 def show_groups_by_continent():
-    continent = input("Continent: ")
+    print("Choose Continent:")
+    continent = continent_submenu()
     groups = Group.get_continent(continent.capitalize())
     if len(groups) > 0:
         for n in groups:
@@ -45,7 +46,10 @@ def show_groups_by_continent():
         print(f'Error: No Groups founded on "{continent.capitalize()}"')
 
 def show_groups_by_city():
-    city = input("City: ")
+    print("Choose Continent:")
+    continent = continent_submenu()
+    print("Choose City:")
+    city = city_submenu(continent)
     groups = Group.get_city(string.capwords(city))
     if len(groups) > 0:
         for n in groups:
@@ -54,7 +58,8 @@ def show_groups_by_city():
         print(f'Error: No Groups founded in "{string.capwords(city)}".')
 
 def show_adventurers_by_alignment():
-    alignment = input("Alignment: ")
+    print("Choose Alignment:")
+    alignment = alignment_submenu()
     advs = Adventurer.get_alignment(alignment.capitalize())
     if len(advs) > 0:
         for n in advs:
@@ -63,7 +68,8 @@ def show_adventurers_by_alignment():
         print(f'Error: No "{alignment.capitalize()}" Adventurers found.')
 
 def show_adventurers_by_job():
-    job = input("Job: ")
+    print("Choose Job:")
+    job = job_submenu()
     advs = Adventurer.get_job(job.capitalize())
     if len(advs) > 0:
         for n in advs:
@@ -189,7 +195,8 @@ def delete_adventurer():
         print(f"Adventurer {id_} not found.")
 
 def show_adventurers_by_group():
-    id_ = input("Group's ID#: ")
+    print("Choose Group:")
+    id_ = group_id_submenu()
     if group := Group.get_by_id(id_):
         for n in group.get_members():
             print(n)
