@@ -1,29 +1,28 @@
 from __init__ import CURSOR, CONN
 from group import Group
 
-JOB = [
-    "Brawler",
-    "Director",
-    "Feral",
-    "Lookout",
-    "Preacher",
-    "Shade",
-    "Wanderer",
-    "Zealot"
-]
-
-ALIGNMENT = [
-    "Apathetic",
-    "Anarchic",
-    "Commercial",
-    "Philanthropic",
-    "Political",
-    "Religious",
-    "Social"
-]
 
 class Adventurer:
 
+    JOB = [
+        "Brawler",
+        "Director",
+        "Feral",
+        "Lookout",
+        "Preacher",
+        "Shade",
+        "Wanderer",
+        "Zealot"
+    ]
+    ALIGNMENT = [
+        "Apathetic",
+        "Anarchic",
+        "Commercial",
+        "Philanthropic",
+        "Political",
+        "Religious",
+        "Social"
+    ]
     all = {}
     names = []
 
@@ -70,7 +69,7 @@ class Adventurer:
     
     @alignment.setter
     def alignment(self, alignment):
-        if alignment.capitalize() in ALIGNMENT:
+        if alignment.capitalize() in Adventurer.ALIGNMENT:
             self._alignment = alignment.capitalize()
         else:
             raise ValueError(f"{alignment.capitalize()} is not a valid alignment.")
@@ -81,7 +80,7 @@ class Adventurer:
     
     @job.setter
     def job(self, job):
-        if job.capitalize() in JOB:
+        if job.capitalize() in Adventurer.JOB:
             self._job = job.capitalize()
         else:
             raise ValueError(f"{job.capitalize()} is not a valid job.")

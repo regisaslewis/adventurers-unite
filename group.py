@@ -1,15 +1,14 @@
 from __init__ import CURSOR, CONN
 import string
 
-CONTINENT = {
-    "Bettle": ["Burg", "Hommoch", "Lei"],
-    "Jidoth": ["Lord's Port", "Oth", "Tirena", "Videlsen"],
-    "Mollen": ["Aldon", "Exigot", "Len City", "Pelta", "The Villages Of Southern Aldon", "Vanna's Perch"],
-    "Rise": ["Expanse", "Mouth", "Shelf"]
-}
-
 class Group:
 
+    CONTINENT = {
+        "Bettle": ["Burg", "Hommoch", "Lei"],
+        "Jidoth": ["Lord's Port", "Oth", "Tirena", "Videlsen"],
+        "Mollen": ["Aldon", "Exigot", "Len City", "Pelta", "The Villages Of Southern Aldon", "Vanna's Perch"],
+        "Rise": ["Expanse", "Mouth", "Shelf"]
+    }
     all = {}
     names = []
 
@@ -55,7 +54,7 @@ class Group:
     
     @continent.setter
     def continent(self, continent):
-        if continent.capitalize() in CONTINENT:
+        if continent.capitalize() in Group.CONTINENT:
             self._continent = continent.capitalize()
         else:
             raise ValueError(f"{continent.capitalize()} is not a valid continent.")
@@ -66,7 +65,7 @@ class Group:
     
     @city.setter
     def city(self, city):
-        if string.capwords(city) in CONTINENT[self.continent]:
+        if string.capwords(city) in Group.CONTINENT[self.continent]:
             self._city = string.capwords(city)
         else:
             raise ValueError(f"{string.capwords(city)} is not a valid city in {self.continent}.")

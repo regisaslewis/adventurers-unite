@@ -74,8 +74,10 @@ def show_adventurers_by_job():
 
 def make_group():
     name = input("Group's name: ")
-    continent = input("Home continent: ")
-    city = input("Founding city: ")
+    print("Home Continent: ")
+    continent = continent_submenu()
+    print("Founding City:")
+    city = city_submenu(continent)
     try:
         group = Group.create(name, continent, city)
         print(f"{group}\nFOUNDED")
@@ -84,10 +86,13 @@ def make_group():
     
 def make_adventurer():
     name = input("Name: ")
-    alignment = input("Alignment: ")
-    job = input("Job: ")
-    level = input("Level: ")
-    group_id = input("Group's ID#: ")
+    print("Character Alignment:")
+    alignment = alignment_submenu()
+    print("Job:")
+    job = job_submenu()
+    level = input("Level (1 - 20): ")
+    print("Select Group:")
+    group_id = group_id_submenu()
     if len(Group.get_by_id(group_id).get_members()) < 4:
         try:
             adv = Adventurer.create(name, alignment, job, int(level), int(group_id))
@@ -106,20 +111,23 @@ def update_group():
                 if name.upper() in [n.name.upper() for n in Group.get_all()]:
                     raise ValueError("Name is already taken.")
             group.name = name
-            continent = input(f"New home continent (prev: {group.continent}): ")
+            print(f"New home continent (prev: {group.continent}): ")
+            continent = continent_submenu()
             group.continent = continent
-            city = input(f"New founding city (prev: {group.city}): ")
+            print(f"New founding city (prev: {group.city}): ")
+            city = city_submenu(continent)
             group.city = city
             group.update()
             print(f"{group}\nUPDATED")
         except Exception as exc:
-            print(f"Group NOT updated: {exc}")
+            print(f"Group not updated: {exc}")
     else:
         print(f"Error: Group {id_} not found.")
 
 def update_adventurer():
     full_groups = [n.id for n in Group.get_all() if n.is_full()]
-    id_ = input("Adventurer's ID#: ")
+    print("Choose Adventurer:")
+    id_ = adv_id_submenu()
     if adv := Adventurer.get_by_id(id_):
         try:
             name = input(f"New name (prev: {adv.name}): ")
@@ -127,13 +135,16 @@ def update_adventurer():
                 if name.upper() in [n.name.upper() for n in Adventurer.get_all()]:
                     raise ValueError("Name is already taken.")
             adv.name = name
-            alignment = input(f"New alignment (prev: {adv.alignment}): ")
+            print(f"New alignment (prev: {adv.alignment}): ")
+            alignment = alignment_submenu()
             adv.alignment = alignment
-            job = input(f"New job (prev: {adv.job}): ")
+            print(f"New job (prev: {adv.job}): ")
+            job = job_submenu()
             adv.job = job
             level = input(f"New level (prev: {adv.level}): ")
             adv.level = int(level)
-            group_id = input(f"New Group ID# (prev: ({Group.get_by_id(adv.group_id).id}) {Group.get_by_id(adv.group_id).name}): ")
+            print(f"New Group ID# (prev: ({Group.get_by_id(adv.group_id).id}) {Group.get_by_id(adv.group_id).name}): ")
+            group_id = group_id_submenu()
             if Group.get_by_id(group_id):
                 adv.group_id = group_id
             else:
@@ -143,7 +154,7 @@ def update_adventurer():
             adv.update()
             print(f"{adv}\nUPDATED")
         except Exception as exc:
-            print(f"Adventurer NOT updated: {exc}")
+            print(f"Adventurer not updated: {exc}")
     else:
         print(f"Adventurer {id_} not found.")
 
@@ -181,3 +192,69 @@ def show_adventurers_by_group():
             print(n)
     else:
         print(f"Group {id_} not found.")
+
+def continent_submenu():
+    continents = [n for n in Group.CONTINENT]
+    for n in continents:
+        print(f"{continents.index(n) + 1}: {n}")
+    cont_choice = input("=}====> ")
+    try:
+        return continents[int(cont_choice) - 1]
+    except:
+        raise ValueError("Not an option.")
+
+def city_submenu(continent):
+    cities = [n for n in Group.CONTINENT[continent]]
+    for n in cities:
+        print(f"{cities.index(n) + 1}: {n}")
+    city_choice = input("=}====> ")
+    try:
+        return cities[int(city_choice) - 1]
+    except Exception as exc:
+        raise ValueError("Not an option.")
+
+def alignment_submenu():
+    for n in Adventurer.ALIGNMENT:
+        print(f"{Adventurer.ALIGNMENT.index(n) + 1}: {n}")
+    align_choice = input("=}====> ")
+    try:
+        return Adventurer.ALIGNMENT[int(align_choice) - 1]
+    except:
+        raise ValueError("Not an option.")
+
+def job_submenu():
+    for n in Adventurer.JOB:
+        print(f"{Adventurer.JOB.index(n) + 1}: {n}")
+    job_choice = input("=}====> ")
+    try:
+        return Adventurer.JOB[int(job_choice) - 1]
+    except:
+        raise ValueError("Not an option.")
+
+def adv_id_submenu():
+    for n in Adventurer.get_all():
+        print(f"{n.id}: {n.name}")
+    adv_choice = input("=}====> ")
+    try:
+        return adv_choice
+    except:
+        raise ValueError("Not an option.")
+
+def group_id_submenu():
+    for n in Group.get_all():
+        print(f"{n.id}: {n.name} {len(Group.get_by_id(n.id).get_members())}/4")
+    group_choice = input("=}====> ")
+    try:
+        return group_choice
+    except:
+        raise ValueError("Not an option.")
+
+# make_group()
+# make_adventurer()
+# update_group()
+update_adventurer()
+# continent_submenu()
+# city_submenu("Mollen")
+# alignment_submenu()
+# job_submenu()
+# print(group_id_submenu())
