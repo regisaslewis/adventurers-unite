@@ -162,7 +162,8 @@ def update_adventurer():
 def delete_group():
     warning = input("Warning: this will delete all members as well.  Continue? (Y/N): ")
     if warning == "y" or warning == "Y":
-        id_ = input("Group ID#: ")
+        print("Choose Group:")
+        id_ = group_id_submenu()
         if group := Group.get_by_id(id_):
             for n in Group.get_by_id(id_).get_members():
                 print(f"Deleting {n.name}....")
@@ -178,7 +179,8 @@ def delete_group():
         print("Command not recognized.")
 
 def delete_adventurer():
-    id_ = input("Adventurer's ID#: ")
+    print("Choose Adventurer:")
+    id_ = adv_id_submenu()
     if adv := Adventurer.get_by_id(id_):
         print(f"Deleting {adv.name}...")
         adv.delete()
