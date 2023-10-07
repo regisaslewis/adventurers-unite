@@ -20,8 +20,8 @@ from cli_functions import(
 )
 
 def main():
-    print("=" * len("|Adventurer's Unite!|"))
-    print("|Adventurer's Unite!|")
+    print("=" * len("|Adventurers Unite!|"))
+    print("|Adventurers Unite!|")
     while True:
         menu()
         choice = input("=}==> ")
@@ -81,7 +81,7 @@ def main():
             print("Error: Not an option.")
 
 def menu():
-    print("=" * len("|Adventurer's Unite!|"))
+    print("=" * len("|Adventurers Unite!|"))
     print("Main Menu:")
     print("0: Close the Program")
     print("1: Group Options")

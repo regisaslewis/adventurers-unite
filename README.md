@@ -5,7 +5,7 @@ No one changes the world alone.
 Amass power or wealth.  Raise glory to your god.  Uplift the destitute.  Or merely earn a living to endure for another day.
 No matter what, it will take the combined efforts of a Group to succeed.  Be they temporary allies, dear friends, or even endentured subordinates, one must rely on others.
 
-### The Adventurer's Unite Interface
+### The Adventurers Unite Interface
 ![Main Menu](images/Main%20Menu.png)
 
 The first task for a user is to either select a group to join or create one of their own. Selecting option 2 will take open up the Group Options, where information can be gathered.
