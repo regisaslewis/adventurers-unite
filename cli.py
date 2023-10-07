@@ -19,6 +19,8 @@ from cli_functions import(
     show_adventurers_by_group
 )
 
+import seed
+
 def main():
     print("=" * len("|Adventurers Unite!|"))
     print("|Adventurers Unite!|")
