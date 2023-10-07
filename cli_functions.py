@@ -248,13 +248,3 @@ def group_id_submenu():
         return group_choice
     except:
         raise ValueError("Not an option.")
-
-# make_group()
-# make_adventurer()
-# update_group()
-update_adventurer()
-# continent_submenu()
-# city_submenu("Mollen")
-# alignment_submenu()
-# job_submenu()
-# print(group_id_submenu())
