@@ -40,6 +40,7 @@ def show_groups_by_continent():
     continent = continent_submenu()
     groups = Group.get_continent(continent.capitalize())
     if len(groups) > 0:
+        print(f"{len(groups)} {'Group' if len(groups) == 1 else 'Groups'} founded on {continent.capitalize()}.")
         for n in groups:
             print(n)
     else:
@@ -52,6 +53,7 @@ def show_groups_by_city():
     city = city_submenu(continent)
     groups = Group.get_city(string.capwords(city))
     if len(groups) > 0:
+        print(f"{len(groups)} {'Group' if len(groups) == 1 else 'Groups'} founded in {string.capwords(city)}.")
         for n in groups:
             print(n)
     else:
@@ -62,6 +64,7 @@ def show_adventurers_by_alignment():
     alignment = alignment_submenu()
     advs = Adventurer.get_alignment(alignment.capitalize())
     if len(advs) > 0:
+        print(f'{len(advs)} {"Adventurer is" if len(advs) == 1 else "Adventurers are"} of the "{alignment.capitalize()}" alignment.')
         for n in advs:
             print(n)
     else:
@@ -72,6 +75,7 @@ def show_adventurers_by_job():
     job = job_submenu()
     advs = Adventurer.get_job(job.capitalize())
     if len(advs) > 0:
+        print(f'{len(advs)} {"Adventurer is a" if len(advs) == 1 else "Adventurers are"} "{job.capitalize()}{"" if len(advs) == 1 else "s"}."')
         for n in advs:
             print(n)
     else:

@@ -24,7 +24,7 @@ Each of Silowan's 4 major continents are home to various cities, though only som
 | Mollen | Aldon <br> Exigot <br> Len City <br> Pelta <br> The Villages of Southern Aldon  <br> Vanna's Perch |
 | Rise | Expanse <br> Mouth <br> Shelf |
 
-Crowded cities can offer a lively, bustling ecosystem of Adventurers, though this may also lead to intense competition for resources. The choice of where to begin is up to the Group's Founder.  With option 5, you can check to see how many Groups, if any, belong to a particular city.  
+Crowded cities can offer a lively, bustling ecosystem of Adventurers, though this may also lead to intense competition for resources. The choice of where to begin is up to the Group's Founder.  With option 5, one can gather information about the current Groups belonging to any particular city.
 
 ![Group by City](images/Group%20by%20City.png)
 
