@@ -1,6 +1,10 @@
 from group import Group
 from adventurer import Adventurer
 import string
+import re
+
+pattern = r"[^\W0-9\s]*([^\W0-9]+[\.]{0,1}[\s'\-]{0,1})+[!]*[^\s\W]*"
+regex = re.compile(pattern)
 
 def exit_cli():
     print("Closing the Program...")
@@ -88,6 +92,7 @@ def make_group():
     print("Founding City:")
     city = city_submenu(continent)
     try:
+        test_name(name)
         group = Group.create(name, continent, city)
         print(f"{group}\nFOUNDED")
     except Exception as exc:
@@ -104,12 +109,13 @@ def make_adventurer():
     group_id = group_id_submenu()
     if len(Group.get_by_id(group_id).get_members()) < 4:
         try:
+            test_name(name)
             adv = Adventurer.create(name, alignment, job, int(level), int(group_id))
             print(f"{adv}\nCREATED")
         except Exception as exc:
             print(f"Adventurer could not be created: {exc}")
     else:
-        print(f'Error: Group "{Group.get_by_id(group_id).name}" is already full!')
+        print(f'Group "{Group.get_by_id(group_id).name}" is already full!')
 
 def update_group():
     print("Choose Group:")
@@ -117,6 +123,7 @@ def update_group():
     if group := Group.get_by_id(id_):
         try:
             name = input(f"New name (prev: {group.name}): ")
+            test_name(name)
             if name.upper() != Group.get_by_id(id_).name.upper():
                 if name.upper() in [n.name.upper() for n in Group.get_all()]:
                     raise ValueError("Name is already taken.")
@@ -141,6 +148,7 @@ def update_adventurer():
     if adv := Adventurer.get_by_id(id_):
         try:
             name = input(f"New name (prev: {adv.name}): ")
+            test_name(name)
             if name.upper() != Adventurer.get_by_id(id_).name.upper():
                 if name.upper() in [n.name.upper() for n in Adventurer.get_all()]:
                     raise ValueError("Name is already taken.")
@@ -160,7 +168,7 @@ def update_adventurer():
             else:
                 raise ValueError("Group does not exist.")
             if int(group_id) in full_groups:
-                raise ValueError(f'Group ({Group.get_by_id(group_id).id}) "{Group.get_by_id(group_id).name}" is full.')
+                raise ValueError(f'Group ({Group.get_by_id(group_id).id}) "{Group.get_by_id(group_id).name}" is already full.')
             adv.update()
             print(f"{adv}\nUPDATED")
         except Exception as exc:
@@ -223,7 +231,7 @@ def city_submenu(continent):
     city_choice = input("=}====> ")
     try:
         return cities[int(city_choice) - 1]
-    except Exception as exc:
+    except Exception:
         raise ValueError("Not an option.")
 
 def alignment_submenu():
@@ -261,3 +269,10 @@ def group_id_submenu():
         return group_choice
     except:
         raise ValueError("Not an option.")
+    
+def test_name(name):
+    if regex.fullmatch(name):
+        pass
+    else:
+        raise ValueError("That name is not acceptable.")
+        
