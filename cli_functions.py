@@ -3,7 +3,7 @@ from adventurer import Adventurer
 import string
 import re
 
-pattern = r"[^\W0-9\s]*([^\W0-9]+[\.]{0,1}[\s'\-]{0,1})+[!]{0,1}[^\s\W]*"
+pattern = r"[^\W0-9\s]*([^\W0-9]+[\.\,!?]{0,1}[\s'\-]{0,1})+[!?]{0,1}[^\s\W]*"
 regex = re.compile(pattern)
 
 
