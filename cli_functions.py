@@ -3,8 +3,9 @@ from adventurer import Adventurer
 import string
 import re
 
-pattern = r"[^\W0-9\s]*([^\W0-9]+[\.]{0,1}[\s'\-]{0,1})+[!]*[^\s\W]*"
+pattern = r"[^\W0-9\s]*([^\W0-9]+[\.]{0,1}[\s'\-]{0,1})+[!]{0,1}[^\s\W]*"
 regex = re.compile(pattern)
+
 
 def exit_cli():
     print("Closing the Program...")
@@ -99,23 +100,23 @@ def make_group():
         print(f"Error: Group could not be founded: {exc}")
     
 def make_adventurer():
-    name = input("Name: ")
-    print("Character Alignment:")
-    alignment = alignment_submenu()
-    print("Job:")
-    job = job_submenu()
-    level = input("Level (1 - 20): ")
-    print("Select Group:")
+    print("Select Group to join:")
     group_id = group_id_submenu()
-    if len(Group.get_by_id(group_id).get_members()) < 4:
-        try:
+    try:
+        if len(Group.get_by_id(group_id).get_members()) < 4:
+            name = input("Adveturer's Name: ")
             test_name(name)
-            adv = Adventurer.create(name, alignment, job, int(level), int(group_id))
-            print(f"{adv}\nCREATED")
-        except Exception as exc:
-            print(f"Adventurer could not be created: {exc}")
-    else:
-        print(f'Group "{Group.get_by_id(group_id).name}" is already full!')
+            print("Character Alignment:")
+            alignment = alignment_submenu()
+            print("Job:")
+            job = job_submenu()
+            level = input("Level (1 - 20): ")
+        else:
+            raise ValueError(f'{Group.get_by_id(group_id).name} is already full!')
+        adv = Adventurer.create(name, alignment, job, int(level), int(group_id))
+        print(f"{adv}\nCREATED")
+    except Exception as exc:
+        print(f"Adventurer could not be created: {exc}")
 
 def update_group():
     print("Choose Group:")
@@ -127,12 +128,12 @@ def update_group():
             if name.upper() != Group.get_by_id(id_).name.upper():
                 if name.upper() in [n.name.upper() for n in Group.get_all()]:
                     raise ValueError("Name is already taken.")
-            group.name = name
             print(f"New home continent (prev: {group.continent}): ")
             continent = continent_submenu()
-            group.continent = continent
             print(f"New founding city (prev: {group.city}): ")
             city = city_submenu(continent)
+            group.name = name
+            group.continent = continent
             group.city = city
             group.update()
             print(f"{group}\nUPDATED")
@@ -147,28 +148,29 @@ def update_adventurer():
     id_ = adv_id_submenu()
     if adv := Adventurer.get_by_id(id_):
         try:
-            name = input(f"New name (prev: {adv.name}): ")
-            test_name(name)
-            if name.upper() != Adventurer.get_by_id(id_).name.upper():
-                if name.upper() in [n.name.upper() for n in Adventurer.get_all()]:
-                    raise ValueError("Name is already taken.")
-            adv.name = name
-            print(f"New alignment (prev: {adv.alignment}): ")
-            alignment = alignment_submenu()
-            adv.alignment = alignment
-            print(f"New job (prev: {adv.job}): ")
-            job = job_submenu()
-            adv.job = job
-            level = input(f"New level (prev: {adv.level}): ")
-            adv.level = int(level)
             print(f"New Group ID# (prev: ({Group.get_by_id(adv.group_id).id}) {Group.get_by_id(adv.group_id).name}): ")
             group_id = group_id_submenu()
             if Group.get_by_id(group_id):
-                adv.group_id = group_id
+                pass
             else:
                 raise ValueError("Group does not exist.")
             if int(group_id) in full_groups:
                 raise ValueError(f'Group ({Group.get_by_id(group_id).id}) "{Group.get_by_id(group_id).name}" is already full.')
+            name = input(f"New name (prev: {adv.name}): ")
+            if name.upper() != Adventurer.get_by_id(id_).name.upper():
+                if name.upper() in [n.name.upper() for n in Adventurer.get_all()]:
+                    raise ValueError("Name is already taken.")
+            test_name(name)
+            print(f"New alignment (prev: {adv.alignment}): ")
+            alignment = alignment_submenu()
+            print(f"New job (prev: {adv.job}): ")
+            job = job_submenu()
+            level = input(f"New level (prev: {adv.level}): ")
+            adv.name = name
+            adv.group_id = group_id
+            adv.alignment = alignment
+            adv.job = job
+            adv.level = int(level)
             adv.update()
             print(f"{adv}\nUPDATED")
         except Exception as exc:
@@ -219,9 +221,9 @@ def continent_submenu():
     for n in continents:
         print(f"{continents.index(n) + 1}: {n}")
     cont_choice = input("=}====> ")
-    try:
+    if int(cont_choice) > 0:
         return continents[int(cont_choice) - 1]
-    except:
+    else:
         raise ValueError("Not an option.")
 
 def city_submenu(continent):
@@ -229,50 +231,43 @@ def city_submenu(continent):
     for n in cities:
         print(f"{cities.index(n) + 1}: {n}")
     city_choice = input("=}====> ")
-    try:
+    if int(city_choice) > 0:
         return cities[int(city_choice) - 1]
-    except Exception:
+    else:
         raise ValueError("Not an option.")
 
 def alignment_submenu():
     for n in Adventurer.ALIGNMENT:
         print(f"{Adventurer.ALIGNMENT.index(n) + 1}: {n}")
     align_choice = input("=}====> ")
-    try:
+    if int(align_choice) > 0:
         return Adventurer.ALIGNMENT[int(align_choice) - 1]
-    except:
+    else:
         raise ValueError("Not an option.")
 
 def job_submenu():
     for n in Adventurer.JOB:
         print(f"{Adventurer.JOB.index(n) + 1}: {n}")
     job_choice = input("=}====> ")
-    try:
+    if int(job_choice) > 0:
         return Adventurer.JOB[int(job_choice) - 1]
-    except:
+    else:
         raise ValueError("Not an option.")
 
 def adv_id_submenu():
     for n in Adventurer.get_all():
         print(f"{n.id}: {n.name}")
     adv_choice = input("=}====> ")
-    try:
-        return adv_choice
-    except:
-        raise ValueError("Not an option.")
+    return adv_choice
 
 def group_id_submenu():
     for n in Group.get_all():
         print(f"{n.id}: {n.name} [{len(Group.get_by_id(n.id).get_members())}/4]")
     group_choice = input("=}====> ")
-    try:
-        return group_choice
-    except:
-        raise ValueError("Not an option.")
+    return group_choice
     
 def test_name(name):
     if regex.fullmatch(name):
         pass
     else:
         raise ValueError("That name is not acceptable.")
-        
