@@ -270,4 +270,4 @@ def test_name(name):
     if regex.fullmatch(name):
         pass
     else:
-        raise ValueError("That name is not acceptable.")
+        raise ValueError("Name structure not accepted.")
