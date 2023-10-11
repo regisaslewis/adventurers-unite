@@ -3,16 +3,16 @@ from adventurer import Adventurer
 import string
 import re
 
-pattern = r"[^\W0-9\s]*([^\W0-9]+[\.\,!?]{0,1}[\s'\-]{0,1})+[!?]{0,1}[^\s\W]*"
-regex = re.compile(pattern)
-
+name_pattern = r"[^\W0-9\s]*([^\W0-9]+[\.\,!?]?[\s'\-]?)+[^\s\W]+"
+group_pattern = r"[^\W0-9\s]*([^\W0-9]+[\.\,!?]?[\s'\-]?)+[^\s\W]+[!?]?"
+name_regex = re.compile(name_pattern)
+group_regex = re.compile(group_pattern)
 
 def exit_cli():
     print("Closing the Program...")
     exit()
 
 def show_all_groups():
-    Adventurer.get_all() #included to populate Group.members
     for n in Group.get_all():
         print(n)
 
@@ -42,31 +42,31 @@ def show_adventurer_by_name():
 
 def show_groups_by_continent():
     print("Choose Continent:")
-    continent = continent_submenu()
+    continent = selection_submenu(Group.CONTINENT)
     groups = Group.get_continent(continent.capitalize())
     if len(groups) > 0:
         print(f"{len(groups)} {'Group' if len(groups) == 1 else 'Groups'} founded on {continent.capitalize()}.")
         for n in groups:
             print(n)
     else:
-        print(f'Error: No Groups founded on "{continent.capitalize()}"')
+        print(f'Error: No Groups founded on {continent.capitalize()}')
 
 def show_groups_by_city():
     print("Choose Continent:")
-    continent = continent_submenu()
+    continent = selection_submenu(Group.CONTINENT)
     print("Choose City:")
-    city = city_submenu(continent)
+    city = selection_submenu(Group.CONTINENT[continent])
     groups = Group.get_city(string.capwords(city))
     if len(groups) > 0:
         print(f"{len(groups)} {'Group' if len(groups) == 1 else 'Groups'} founded in {string.capwords(city)}.")
         for n in groups:
             print(n)
     else:
-        print(f'Error: No Groups founded in "{string.capwords(city)}".')
+        print(f'Error: No Groups founded in {string.capwords(city)}.')
 
 def show_adventurers_by_alignment():
     print("Choose Alignment:")
-    alignment = alignment_submenu()
+    alignment = selection_submenu(Adventurer.ALIGNMENT)
     advs = Adventurer.get_alignment(alignment.capitalize())
     if len(advs) > 0:
         print(f'{len(advs)} {"Adventurer is" if len(advs) == 1 else "Adventurers are"} of the "{alignment.capitalize()}" alignment.')
@@ -77,27 +77,27 @@ def show_adventurers_by_alignment():
 
 def show_adventurers_by_job():
     print("Choose Job:")
-    job = job_submenu()
+    job = selection_submenu(Adventurer.JOB)
     advs = Adventurer.get_job(job.capitalize())
     if len(advs) > 0:
         print(f'{len(advs)} {"Adventurer is a" if len(advs) == 1 else "Adventurers are"} "{job.capitalize()}{"" if len(advs) == 1 else "s"}."')
         for n in advs:
             print(n)
     else:
-        print(f'Error: No "{job.capitalize()}s" found.')
+        print(f'Error: No {job.capitalize()}s found.')
 
 def make_group():
-    name = input("Group's name: ")
-    print("Home Continent: ")
-    continent = continent_submenu()
-    print("Founding City:")
-    city = city_submenu(continent)
     try:
-        test_name(name)
+        name = input("Group's name: ")
+        test_group_name(name)
+        print("Home Continent: ")
+        continent = selection_submenu(Group.CONTINENT)
+        print("Founding City:")
+        city = selection_submenu(Group.CONTINENT[continent])
         group = Group.create(name, continent, city)
         print(f"{group}\nFOUNDED")
     except Exception as exc:
-        print(f"Error: Group could not be founded: {exc}")
+        print(f"Group could not be founded: {exc}")
     
 def make_adventurer():
     print("Select Group to join:")
@@ -107,9 +107,9 @@ def make_adventurer():
             name = input("Adveturer's Name: ")
             test_name(name)
             print("Character Alignment:")
-            alignment = alignment_submenu()
+            alignment = selection_submenu(Adventurer.ALIGNMENT)
             print("Job:")
-            job = job_submenu()
+            job = selection_submenu(Adventurer.JOB)
             level = input("Level (1 - 20): ")
         else:
             raise ValueError(f'{Group.get_by_id(group_id).name} is already full!')
@@ -124,14 +124,14 @@ def update_group():
     if group := Group.get_by_id(id_):
         try:
             name = input(f"New name (prev: {group.name}): ")
-            test_name(name)
+            test_group_name(name)
             if name.upper() != Group.get_by_id(id_).name.upper():
                 if name.upper() in [n.name.upper() for n in Group.get_all()]:
                     raise ValueError("Name is already taken.")
             print(f"New home continent (prev: {group.continent}): ")
-            continent = continent_submenu()
+            continent = selection_submenu(Group.CONTINENT)
             print(f"New founding city (prev: {group.city}): ")
-            city = city_submenu(continent)
+            city = selection_submenu(Group.CONTINENT[continent])
             group.name = name
             group.continent = continent
             group.city = city
@@ -162,9 +162,9 @@ def update_adventurer():
                     raise ValueError("Name is already taken.")
             test_name(name)
             print(f"New alignment (prev: {adv.alignment}): ")
-            alignment = alignment_submenu()
+            alignment = selection_submenu(Adventurer.ALIGNMENT)
             print(f"New job (prev: {adv.job}): ")
-            job = job_submenu()
+            job = selection_submenu(Adventurer.JOB)
             level = input(f"New level (prev: {adv.level}): ")
             adv.name = name
             adv.group_id = group_id
@@ -179,8 +179,8 @@ def update_adventurer():
         print(f"Adventurer {id_} not found.")
 
 def delete_group():
-    warning = input("Warning: this will delete all members as well.  Continue? (Y/N): ")
-    if warning == "y" or warning == "Y":
+    warning = input("Warning: this will delete all members as well.  Continue? (Y/N): ").upper()
+    if warning == "Y" or warning == "YES":
         print("Choose Group:")
         id_ = group_id_submenu()
         if group := Group.get_by_id(id_):
@@ -192,8 +192,8 @@ def delete_group():
             print(f"Group {id_} deleted.")
         else:
             print(f"Group {id_} not found.")
-    elif warning == "n" or warning == "N":
-        print("Delete Cancelled.")
+    elif warning == "N" or warning == "NO":
+        print("Deletion Cancelled.")
     else:
         print("Command not recognized.")
 
@@ -216,43 +216,15 @@ def show_adventurers_by_group():
     else:
         print(f"Group {id_} not found.")
 
-def continent_submenu():
-    continents = [n for n in Group.CONTINENT]
-    for n in continents:
-        print(f"{continents.index(n) + 1}: {n}")
-    cont_choice = input("=}====> ")
-    if int(cont_choice) > 0:
-        return continents[int(cont_choice) - 1]
+def selection_submenu(class_constant):
+    list = [n for n in class_constant]
+    for n in list:
+        print(f"{list.index(n) + 1}: {n}")
+    list_choice = input("=}====> ")
+    if 0 < int(list_choice) <= len(list):
+        return list[int(list_choice) - 1]
     else:
-        raise ValueError("Not an option.")
-
-def city_submenu(continent):
-    cities = [n for n in Group.CONTINENT[continent]]
-    for n in cities:
-        print(f"{cities.index(n) + 1}: {n}")
-    city_choice = input("=}====> ")
-    if int(city_choice) > 0:
-        return cities[int(city_choice) - 1]
-    else:
-        raise ValueError("Not an option.")
-
-def alignment_submenu():
-    for n in Adventurer.ALIGNMENT:
-        print(f"{Adventurer.ALIGNMENT.index(n) + 1}: {n}")
-    align_choice = input("=}====> ")
-    if int(align_choice) > 0:
-        return Adventurer.ALIGNMENT[int(align_choice) - 1]
-    else:
-        raise ValueError("Not an option.")
-
-def job_submenu():
-    for n in Adventurer.JOB:
-        print(f"{Adventurer.JOB.index(n) + 1}: {n}")
-    job_choice = input("=}====> ")
-    if int(job_choice) > 0:
-        return Adventurer.JOB[int(job_choice) - 1]
-    else:
-        raise ValueError("Not an option.")
+        raise ValueError(list_choice, "is not an option.")
 
 def adv_id_submenu():
     for n in Adventurer.get_all():
@@ -267,7 +239,13 @@ def group_id_submenu():
     return group_choice
     
 def test_name(name):
-    if regex.fullmatch(name):
+    if name_regex.fullmatch(name):
         pass
     else:
         raise ValueError("Name structure not accepted.")
+
+def test_group_name(name):
+    if group_regex.fullmatch(name):
+        pass
+    else:
+        raise ValueError("Group name structure not accepted.")
