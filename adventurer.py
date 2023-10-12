@@ -227,9 +227,9 @@ class Adventurer:
         sql = """
             SELECT *
             FROM adventurers
-            WHERE name = ?
+            WHERE upper(name) = ?
         """
-        n = CURSOR.execute(sql, (name,)).fetchone()
+        n = CURSOR.execute(sql, (name.upper(),)).fetchone()
         return cls.instance_from_database(n) if n else None
     
     def get_group(self):

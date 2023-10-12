@@ -31,12 +31,12 @@ def show_adventurer_by_id():
     print(adv) if adv else print(f"Adventurer {id_} not found.")
 
 def show_group_by_name():
-    name = input("Group name (case sensitive): ")
+    name = input("Group name: ")
     group = Group.get_by_name(name)
     print(group) if group else print(f'Group "{name}" not found.')
 
 def show_adventurer_by_name():
-    name = input("Adventurer's name (case sensitive): ")
+    name = input("Adventurer's name: ")
     adv = Adventurer.get_by_name(name)
     print(adv) if adv else print(f'"{name}" not found.')
 
